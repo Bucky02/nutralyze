@@ -3,10 +3,13 @@ ul li{
 }
 .personalizzazione{
     width: 100%;
-    background-color: black;
+    background-color: green;
     color: white;
     padding: 2px;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .personalizzazione:hover{
@@ -15,7 +18,7 @@ ul li{
 
 
 #centrale{
-    size: 10px;
-    margin-right: 10px;
-    text-align: center;
+    text-size: 10px;
+
+    
 }
