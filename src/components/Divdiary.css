@@ -1,5 +1,6 @@
-.diaryBox{
-    background-color: gold;
-    height: 100%;
-    flex-direction: column;
+.diaryBox {
+  background-color: #c8e6c9;
+
+  height: 100%;
+  flex-direction: column;
 }

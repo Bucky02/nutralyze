@@ -1,5 +1,5 @@
-.searchBox{
-    background-color: black;
-    display: flex;
-    flex-direction: column;
+.searchBox {
+  background-color: #b3e5fc;
+  display: flex;
+  flex-direction: column;
 }
