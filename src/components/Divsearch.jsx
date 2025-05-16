@@ -4,13 +4,13 @@ function Divsearch() {
   return (
     <div className="searchBox">
       <h2>Il motore di ricerca per perdere peso</h2>
-      <p style={{ color: "red", fontSize: "18px" }}>
+      <p className="grande">
         Scopri quante <strong>calorie</strong> e quanti{" "}
         <strong>nutrienti</strong> ci sono in un
         <strong> alimento</strong>, un <strong>piatto</strong>, un{" "}
         <strong>pasto</strong> o una <strong>dieta</strong>.
       </p>
-      <p style={{ fontSize: "12px" }}>
+      <p className="picc">
         Decidi se vuoi{" "}
         <strong>
           "contare" proteine, grassi, zuccheri, fibra ed energia contenuti
@@ -35,13 +35,6 @@ function Divsearch() {
           <input type="submit" className="btn" value="Cerca" />
         </div>
       </div>
-      <p>a</p>
-      <p>a</p>
-      <p>a</p>
-      <p>a</p>
-      <p>a</p>
-      <p>a</p>
-      <p>a</p>
     </div>
   );
 }
