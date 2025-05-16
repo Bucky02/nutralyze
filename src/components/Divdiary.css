@@ -1,6 +1,76 @@
 .diaryBox {
-  background-color: #c8e6c9;
+  height: 80vh; /* Altezza al 80% dell'altezza della finestra */
+  position: relative; /* Necessario per posizionare elementi assoluti figli */
+  background-image: url("/src/assets/ciboSano.jpeg"); /* Immagine di sfondo */
+  background-size: cover; /* L'immagine copre tutto il contenitore mantenendo proporzioni */
+  background-position: center; /* Centra l'immagine nel contenitore */
+  background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
+  display: flex; /* Usa flexbox per layout verticale */
+  flex-flow: column; /* Dispone i figli in colonna */
+}
 
-  height: 100%;
-  flex-direction: column;
+#paraDiary {
+  position: relative; /* Permette sovrapposizione su overlay */
+  z-index: 2; /* Testo in primo piano sopra overlay */
+  font-family: "Poppins", sans-serif; /* Font moderno e leggibile */
+  color: white; /* Testo bianco per contrasto */
+  margin-top: 0; /* Nessun margine superiore */
+  margin-bottom: 3px; /* Piccolo margine inferiore */
+  font-weight: 900; /* Testo molto spesso (grassetto) */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8); /* Ombra nera per rendere testo più leggibile */
+  font-size: 1.5rem; /* Dimensione testo abbastanza grande */
+}
+
+.diaryBox::before {
+  content: ""; /* Contenuto vuoto, serve come overlay */
+  position: absolute; /* Posizionato rispetto a .diaryBox */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; /* Occupa tutta l'area del contenitore */
+  background-color: rgba(0, 0, 0, 0.4); /* Overlay nero semi-trasparente */
+  z-index: 1; /* Si posiziona sotto il testo ma sopra l’immagine di sfondo */
+}
+
+.diaryBox button {
+  position: absolute; /* Posizionato in modo assoluto rispetto a diaryBox */
+  bottom: 5%; /* Distanza dal fondo 5% dell'altezza contenitore */
+  right: 3%; /* Distanza da destra 3% della larghezza contenitore */
+  width: 20%; /* Larghezza del bottone pari al 20% del contenitore */
+  height: 3rem; /* Altezza fissa in rem */
+  background-color: #a3c9f1; /* Colore azzurro chiaro */
+  color: #2c3e50; /* Testo scuro per buon contrasto */
+  border: none; /* Nessun bordo */
+  border-radius: 10px; /* Angoli arrotondati */
+  font-family: "Poppins", sans-serif; /* Font moderno */
+  font-weight: 600; /* Testo semi-grassetto */
+  font-size: 14px; /* Dimensione testo leggibile */
+  margin-right: 15px; /* Spazio a destra (utile se affiancato) */
+  cursor: pointer; /* Cambia cursore in mano al passaggio */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Leggera ombra per profondità */
+  transition: all 0.3s ease-in-out; /* Animazione fluida al passaggio */
+  z-index: 2; /* Sopra overlay, sotto video se necessario */
+}
+
+.diaryBox button:hover {
+  background-color: #7fa8d9; /* Cambia colore bottone quando ci passi sopra */
+  transform: scale(1.05); /* Ingrandisce leggermente al passaggio */
+}
+
+.videoWrapper {
+  margin-top: 30%; /* Spazio sopra per distanziare dal testo */
+  display: flex; /* Flexbox per layout orizzontale */
+  justify-content: flex-start; /* Video allineato a sinistra */
+}
+
+.videoItem {
+  width: 60%; /* Larghezza video al 60% del contenitore */
+  max-height: 300px; /* Altezza massima 300px */
+  border-radius: 10px; /* Angoli arrotondati */
+  object-fit: cover; /* Video riempie l’area senza distorsioni */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombra leggera sotto il video */
+  position: relative; /* Per poter usare z-index */
+  z-index: 3; /* Sopra overlay e testo */
+  border: 3px solid rgba(255, 255, 255, 0.7); /* Bordo bianco semi-trasparente */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 8px 20px rgba(0, 0, 0, 0.7); /* Alone bianco + ombra scura per effetto "glow" */
 }
