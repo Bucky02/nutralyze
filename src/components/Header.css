@@ -27,6 +27,42 @@
   margin: 15px;
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.secondary-button {
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 8px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 10px 12px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
 .login-button {
   background-color: #2c3e50; /* Blu scuro elegante */
   color: white; /* Testo bianco per contrasto */
@@ -75,4 +111,8 @@
 
 .title-container {
   margin-left: 60px;
+}
+
+.logo-container {
+  cursor: pointer;
 }
