@@ -1,5 +1,5 @@
 .diaryBox {
-  height: 80vh; /* Altezza al 80% dell'altezza della finestra */
+  min-height: 80vh; /* più robusto di solo height */
   position: relative; /* Necessario per posizionare elementi assoluti figli */
   background-image: url("/src/assets/ciboSano.jpeg"); /* Immagine di sfondo */
   background-size: cover; /* L'immagine copre tutto il contenitore mantenendo proporzioni */
@@ -7,6 +7,12 @@
   background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
   display: flex; /* Usa flexbox per layout verticale */
   flex-flow: column; /* Dispone i figli in colonna */
+  margin: 10px;
+  border-radius: 2px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3), 0px 8px 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden; /* Niente scroll né fuoriuscite */
+  align-items: center; /* Centra contenuti orizzontalmente */
+  justify-content: flex-start; /* Allinea contenuto in alto */
 }
 
 #paraDiary {
@@ -58,7 +64,7 @@
 }
 
 .videoWrapper {
-  margin-top: 30%; /* Spazio sopra per distanziare dal testo */
+  margin-top: auto;
   display: flex; /* Flexbox per layout orizzontale */
   justify-content: flex-start; /* Video allineato a sinistra */
 }
@@ -73,4 +79,35 @@
   z-index: 3; /* Sopra overlay e testo */
   border: 3px solid rgba(255, 255, 255, 0.7); /* Bordo bianco semi-trasparente */
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 8px 20px rgba(0, 0, 0, 0.7); /* Alone bianco + ombra scura per effetto "glow" */
+}
+
+@media (max-width: 768px) {
+  .diaryBox {
+    height: auto; /* Lascia che l'altezza si adatti al contenuto */
+    margin: 5px;
+    padding: 1rem;
+  }
+
+  #paraDiary {
+    font-size: 1.2rem; /* Testo un po' più piccolo per schermi stretti */
+  }
+
+  .videoWrapper {
+    margin-top: 20px; /* Meno spazio sopra il video */
+    justify-content: center; /* Centra il video nel contenitore */
+  }
+
+  .videoItem {
+    width: 90%; /* Video più largo, quasi pieno contenitore */
+    max-height: 200px; /* Altezza max ridotta */
+    border-width: 2px; /* Bordo un po' più sottile */
+  }
+
+  .diaryBox button {
+    width: 50%; /* Bottone più largo, più facile da cliccare */
+    height: 2.5rem;
+    bottom: 3%; /* Meno distanza dal basso */
+    right: 25%; /* Centra il bottone orizzontalmente */
+    font-size: 12px; /* Testo leggermente più piccolo */
+  }
 }
