@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Divdiary.css";
+import Prova from "./Prova";
+import { Link } from "react-router-dom";
 
 function Divdiary() {
   const navigate = useNavigate();
@@ -26,10 +28,6 @@ function Divdiary() {
     }
   }, [currentVideo]);
 
-  const handleClick = () => {
-    navigate("/calcolo");
-  };
-
   return (
     <div className="diaryBox">
       <p id="paraDiary">
@@ -54,8 +52,9 @@ function Divdiary() {
           Il tuo browser non supporta il video.
         </video>
       </div>
-
-      <button onClick={handleClick}>Vai al Calcolo</button>
+      <Link to="/prova">
+        <button>Vai al Calcolo</button>
+      </Link>
     </div>
   );
 }

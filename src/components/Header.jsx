@@ -23,7 +23,9 @@ function Header() {
       </div>
 
       <div className="buttons-container">
-        <button className="login-button">Accedi</button>
+        <Link to="/accedi">
+          <button className="login-button">Accedi</button>
+        </Link>
 
         <div className="dropdown">
           <button
