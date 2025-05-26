@@ -1,15 +1,17 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import Search from "./components/Divsearch";
 import Diary from "./components/Divdiary";
-import Prova from "./components/Prova";
+import Calcolo from "./components/Calcolo";
 import Accedi from "./components/Accedi";
 
 function App() {
+  const location = useLocation();
+
   return (
     <>
-      <Header />
+      {location.pathname !== "/accedi" && <Header />}
       <Routes>
         <Route
           path="/"
@@ -20,7 +22,7 @@ function App() {
             </div>
           }
         />
-        <Route path="/prova" element={<Prova />} />
+        <Route path="/calcolo" element={<Calcolo />} />
         <Route path="/accedi" element={<Accedi />} />
       </Routes>
     </>

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Divdiary.css";
-import Prova from "./Prova";
+import Calcolo from "./Calcolo";
 import { Link } from "react-router-dom";
 
 function Divdiary() {
@@ -52,7 +52,7 @@ function Divdiary() {
           Il tuo browser non supporta il video.
         </video>
       </div>
-      <Link to="/prova">
+      <Link to="/calcolo">
         <button>Vai al Calcolo</button>
       </Link>
     </div>

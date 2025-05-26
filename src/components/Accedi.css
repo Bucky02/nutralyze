@@ -1,0 +1,16 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* di default, ma utile sapere */
+  gap: 10px;
+}
+
+.torna {
+  align-self: flex-end;
+}
+
+.torna a {
+  padding: 6px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+}
