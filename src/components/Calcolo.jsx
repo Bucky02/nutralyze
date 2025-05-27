@@ -20,7 +20,6 @@ function Calcolo() {
       </div>
       <div className="conto">
         <div className="lista">
-          <h3>Lista</h3>
           <Alimenti />
         </div>
         <div className="resoconto">

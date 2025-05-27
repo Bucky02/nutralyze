@@ -18,7 +18,9 @@ function Alimenti() {
       <h2>Lista Alimenti</h2>
       <ul>
         {alimenti.map((alimento, index) => (
-          <li key={index}>{alimento.Nome}</li>
+          <li key={index}>
+            {alimento.Nome} - Proteine: {alimento["Proteine (g)"]} g
+          </li>
         ))}
       </ul>
     </div>
