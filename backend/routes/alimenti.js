@@ -23,13 +23,22 @@ router.post("/", async (req, res) => {
   }
 });
 
-// 🔍 GET alimento tramite nome (es: /api/alimenti/cerca?nome=olio)
 router.get("/cerca", async (req, res) => {
-  const nomeDaCercare = req.query.nome;
+  let nomeDaCercare = req.query.nome;
+
+  if (!nomeDaCercare || nomeDaCercare.length < 3) {
+    return res.json([]);
+  }
+
+  const normalizzata = nomeDaCercare
+    .replace(/[^\w\s]|_/g, "") // rimuove punteggiatura
+    .replace(/\s+/g, " "); // normalizza spazi
+
+  const regexString = "^" + normalizzata;
 
   try {
     const risultati = await Alimento.find({
-      Nome: { $regex: new RegExp(`^${nomeDaCercare}`, "i") }, // ← inizia per "olio"
+      Nome: { $regex: new RegExp(regexString, "i") },
     });
 
     res.json(risultati);
