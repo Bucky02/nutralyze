@@ -3,19 +3,21 @@ import "./Calcolo.css";
 function Calcolo() {
   return (
     <div className="calcolo">
-      <div>
-        <label htmlFor="search" className="alimento">
-          Aggiungi un alimento
-        </label>
-      </div>
-      <div>
-        <input
-          type="search"
-          id="search"
-          name="search"
-          className="txt"
-          size="20"
-        />
+      <div className="barra">
+        <div>
+          <label htmlFor="search" className="alimento">
+            Aggiungi un alimento
+          </label>
+        </div>
+        <div>
+          <input
+            type="search"
+            id="search"
+            name="search"
+            className="txt"
+            size="20"
+          />
+        </div>
       </div>
       <div className="conto">
         <div className="lista">
@@ -33,7 +35,6 @@ function Calcolo() {
         <div className="resoconto">
           <h3>Resoconto calorie</h3>
           <ul>
-            <h3>Resoconto</h3>
             <p>Totale calorie: —</p>
             <p>Proteine: —</p>
             <p>Carboidrati: —</p>

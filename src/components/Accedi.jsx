@@ -3,7 +3,7 @@ import "./Accedi.css";
 
 function Accedi() {
   return (
-    <div className="bodyy">
+    <div className="body">
       <div id="barraDiRicerca">
         <div>
           <label htmlFor="search" className="email">
