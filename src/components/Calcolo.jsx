@@ -1,4 +1,5 @@
 import "./Calcolo.css";
+import Alimenti from "./Alimenti";
 
 function Calcolo() {
   return (
@@ -21,16 +22,7 @@ function Calcolo() {
       </div>
       <div className="conto">
         <div className="lista">
-          <h3>Lista</h3>
-          <ul>
-            <li>—</li>
-            <li>—</li>
-            <li>—</li>
-            <li>—</li>
-            <li>—</li>
-            <li>—</li>
-            <li>—</li>
-          </ul>
+          <Alimenti />
         </div>
         <div className="resoconto">
           <h3>Resoconto calorie</h3>
