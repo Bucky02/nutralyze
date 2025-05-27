@@ -23,4 +23,19 @@ router.post("/", async (req, res) => {
   }
 });
 
+// 🔍 GET alimento tramite nome (es: /api/alimenti/cerca?nome=olio)
+router.get("/cerca", async (req, res) => {
+  const nomeDaCercare = req.query.nome;
+
+  try {
+    const risultati = await Alimento.find({
+      Nome: { $regex: new RegExp(`^${nomeDaCercare}`, "i") }, // ← inizia per "olio"
+    });
+
+    res.json(risultati);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;
