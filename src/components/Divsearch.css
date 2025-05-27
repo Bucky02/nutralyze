@@ -137,6 +137,53 @@ h2 {
   font-size: 1rem; /* Dimensione testo abbastanza grande */
 }
 
+.listaAlimenti {
+  list-style-type: none; /* niente pallini */
+  padding: 0;
+  margin: 1.5rem auto 0 auto; /* margine sopra e centrata orizzontalmente */
+  max-width: 400px; /* larghezza massima per non allungarsi troppo */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.85
+  ); /* sfondo chiaro semi-trasparente */
+  border-radius: 10px; /* angoli arrotondati */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* ombra leggera */
+  color: #333; /* testo scuro */
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.listaAlimenti li.nomeAlimento {
+  padding: 12px 20px;
+  border-bottom: 1px solid #ddd; /* linea divisoria leggera */
+  cursor: default; /* niente mano */
+  transition: background-color 0.3s ease;
+}
+
+/* Ultimo elemento senza bordo */
+.listaAlimenti li.nomeAlimento:last-child {
+  border-bottom: none;
+}
+
+/* Hover leggero per effetto interattivo senza farlo sembrare un link */
+.listaAlimenti li.nomeAlimento:hover {
+  background-color: #f0f0f0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .listaAlimenti {
+    max-width: 90%;
+    font-size: 1rem;
+  }
+  .listaAlimenti li.nomeAlimento {
+    padding: 10px 15px;
+  }
+}
+
 @media (max-width: 768px) {
   #barraDiRicerca {
     width: 90%; /* Più largo e adattabile */

@@ -5,6 +5,7 @@ import Search from "./components/Divsearch";
 import Diary from "./components/Divdiary";
 import Calcolo from "./components/Calcolo";
 import Accedi from "./components/Accedi";
+import DatiAlimento from "./components/DatiAlimento";
 
 function App() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function App() {
         />
         <Route path="/calcolo" element={<Calcolo />} />
         <Route path="/accedi" element={<Accedi />} />
+        <Route path="/datiAlimento" element={<DatiAlimento />} />
       </Routes>
     </>
   );

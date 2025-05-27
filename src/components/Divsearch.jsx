@@ -1,43 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import debounce from "lodash/debounce";
 import "./Divsearch.css";
-
+import { Link } from "react-router-dom";
+import DatiAlimento from "./DatiAlimento";
 function Divsearch() {
   const [query, setQuery] = useState("");
-  const [risultato, setRisultato] = useState(null);
+  const [risultati, setRisultati] = useState([]);
   const [errore, setErrore] = useState(null);
 
-  // 🔍 Funzione per chiamare l’API
-  const cerca = async () => {
-    try {
-      const res = await fetch(
-        `http://localhost:8080/api/alimenti/cerca?nome=${encodeURIComponent(
-          query
-        )}`
-      );
-      const data = await res.json();
-
-      if (data.length === 0) {
-        setErrore("❌ Nessun alimento trovato.");
-        setRisultato(null);
-      } else {
-        setRisultato(data[0]);
+  const cerca = useCallback(
+    debounce(async (val) => {
+      if (!val) {
+        setRisultati([]);
         setErrore(null);
+        return;
       }
-    } catch (err) {
-      setErrore("Errore nella richiesta.");
-      setRisultato(null);
-    }
-  };
+
+      if (val.length < 3) {
+        setErrore("⚠️ Digita almeno 3 lettere per iniziare la ricerca.");
+        setRisultati([]);
+        return;
+      }
+
+      try {
+        const res = await fetch(
+          `http://localhost:8080/api/alimenti/cerca?nome=${encodeURIComponent(
+            val
+          )}`
+        );
+        const data = await res.json();
+
+        if (data.length === 0) {
+          setErrore("❌ Nessun alimento trovato.");
+          setRisultati([]);
+        } else {
+          setRisultati(data);
+          setErrore(null);
+        }
+      } catch (err) {
+        setErrore("Errore nella richiesta.");
+        setRisultati([]);
+      }
+    }, 300),
+    []
+  );
+
+  useEffect(() => {
+    cerca(query);
+  }, [query, cerca]);
 
   return (
     <div className="searchBox">
-      {/* 🎥 Video di sfondo */}
       <video autoPlay muted loop className="backgroundVideo">
         <source src="/src/assets/video/donnaFitnes.mp4" type="video/mp4" />
         Il tuo browser non supporta il video.
       </video>
 
-      {/* 🔲 Contenuto sopra il video */}
       <div className="searchContent">
         <h2>Il motore di ricerca per perdere peso</h2>
         <p className="grande">
@@ -46,16 +64,7 @@ function Divsearch() {
           <strong> alimento</strong>, un <strong>piatto</strong>, un{" "}
           <strong>pasto</strong> o una <strong>dieta</strong>.
         </p>
-        <p className="picc">
-          Decidi se vuoi{" "}
-          <strong>
-            "contare" proteine, grassi, zuccheri, fibra ed energia contenuti
-          </strong>{" "}
-          in un alimento o una ricetta oppure tutti i macronutrienti di un
-          determinato cibo.
-        </p>
 
-        {/* 🔍 Barra di ricerca */}
         <div id="barraDiRicerca">
           <div>
             <label htmlFor="search" className="structural">
@@ -71,44 +80,23 @@ function Divsearch() {
               size="20"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-            />
-            <input
-              type="submit"
-              className="btn"
-              value="Cerca"
-              onClick={cerca}
+              placeholder="Es. agnello"
             />
           </div>
         </div>
 
-        {/* ⚠️ Messaggio di errore */}
         {errore && <p className="errore">{errore}</p>}
 
-        {/* ✅ Risultato della ricerca */}
-        {risultato && (
-          <div className="risultatoBox">
-            <h3>{risultato.Nome}</h3>
-            <p>
-              <strong>Categoria:</strong> {risultato.Categoria}
-            </p>
-            <p>
-              <strong>Proteine:</strong> {risultato["Proteine (g)"]} g
-            </p>
-            <p>
-              <strong>Calorie:</strong> {risultato["Energia, calorie (kcal)"]}{" "}
-              kcal
-            </p>
-            <p>
-              <strong>Acqua:</strong> {risultato["Acqua (g)"]} g
-            </p>
-            <p>
-              <strong>Grassi saturi:</strong>{" "}
-              {risultato["Acidi grassi, saturi (g)"]} g
-            </p>
-            <p>
-              <strong>Zuccheri:</strong> {risultato["Zuccheri (g)"]} g
-            </p>
-          </div>
+        {risultati.length > 0 && (
+          <ul className="listaAlimenti">
+            {risultati.map((alimento) => (
+              <Link to="/datiAlimento">
+                <li key={alimento._id} className="nomeAlimento">
+                  {alimento.Nome}
+                </li>
+              </Link>
+            ))}
+          </ul>
         )}
       </div>
     </div>
