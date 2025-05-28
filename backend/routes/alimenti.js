@@ -30,15 +30,23 @@ router.get("/cerca", async (req, res) => {
     return res.json([]);
   }
 
+  // Normalizza l'input dell'utente
   const normalizzata = nomeDaCercare
-    .replace(/[^\w\s]|_/g, "") // rimuove punteggiatura
-    .replace(/\s+/g, " "); // normalizza spazi
-
-  const regexString = "^" + normalizzata;
+    .toLowerCase()
+    .replace(/[^\w\s]|_/g, "") // rimuove punteggiatura (virgole, punti, ecc.)
+    .replace(/\s+/g, " ") // normalizza spazi
+    .trim();
 
   try {
-    const risultati = await Alimento.find({
-      Nome: { $regex: new RegExp(regexString, "i") },
+    const tutti = await Alimento.find();
+
+    const risultati = tutti.filter((alimento) => {
+      const nomeDB = alimento.Nome.toLowerCase()
+        .replace(/[^\w\s]|_/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      return nomeDB.startsWith(normalizzata); // ✅ controlla che inizi con l'input
     });
 
     res.json(risultati);

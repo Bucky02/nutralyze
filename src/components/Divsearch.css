@@ -5,7 +5,7 @@
   background-position: center; /* Centrato */
   background-repeat: no-repeat; /* Niente ripetizione */
   margin: 10px; /* Spazio attorno */
-  border-radius: 2px; /* Angoli leggermente arrotondati */
+  border-radius: 12px; /* Angoli leggermente arrotondati */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3), 0px 8px 20px rgba(0, 0, 0, 0.5); /* Ombra profonda */
   position: relative; /* Serve per posizionare assolutamente il video */
   overflow: hidden; /* Niente scroll né fuoriuscite */
@@ -33,7 +33,7 @@
   color: white; /* Colore del testo */
 }
 
-h2 {
+.searchContent h2 {
   position: relative; /* Permette sovrapposizione su overlay */
   z-index: 2; /* Testo in primo piano sopra overlay */
   font-family: "Poppins", sans-serif; /* Font moderno e leggibile */
@@ -52,7 +52,7 @@ h2 {
   flex-direction: column;
   align-items: center;
   background-color: rgba(245, 224, 164, 0.8); /* 👈 0.8 = 80% opacità */
-  width: 70%;
+  max-width: 400px;
   margin: 0 auto;
   margin-top: 40px;
   padding: 1.2rem;
@@ -142,6 +142,8 @@ h2 {
   padding: 0;
   margin: 1.5rem auto 0 auto; /* margine sopra e centrata orizzontalmente */
   max-width: 400px; /* larghezza massima per non allungarsi troppo */
+  max-height: 250px; /* <- aggiunto limite altezza */
+  overflow-y: auto; /* <- aggiunto scrollbar verticale */
   background-color: rgba(
     255,
     255,
@@ -171,6 +173,18 @@ h2 {
 /* Hover leggero per effetto interattivo senza farlo sembrare un link */
 .listaAlimenti li.nomeAlimento:hover {
   background-color: #f0f0f0;
+}
+.listaAlimenti::-webkit-scrollbar {
+  width: 8px;
+}
+
+.listaAlimenti::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.listaAlimenti::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 /* Responsive */
