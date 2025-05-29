@@ -1,0 +1,218 @@
+.scheda-alimento {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr; /* più spazio al grafico */
+  gap: 2rem;
+  padding: 2rem 3rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  font-family: "Segoe UI", sans-serif;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.scheda-alimento h2 {
+  font-size: 1.4rem;
+  color: #2ecc71;
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+  padding: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: default;
+}
+
+/* Sezione categoria */
+.sezione-categoria {
+  grid-column: 1 / 3;
+  background-color: #f4fbf4;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+  padding: 2rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.sezione-categoria:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-6px);
+}
+
+.sezione-categoria h2 {
+  font-size: 1.4rem;
+  color: #2ecc71;
+  margin-bottom: 1rem;
+}
+
+.categoria-contenuto p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.categoria-contenuto strong {
+  color: #2980b9;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .scheda-alimento {
+    grid-template-columns: 1fr;
+    padding: 2rem 1.5rem;
+  }
+
+  .sezione-grafico,
+  .sezione-badge {
+    grid-column: 1 / 2 !important; /* forziamo una colonna unica */
+  }
+}
+
+.scheda-alimento h1 {
+  grid-column: 1 / 3;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #2ecc71;
+  margin-bottom: 1.5rem;
+  cursor: default;
+  transition: color 0.4s ease;
+}
+
+/* CARD base per tutte le sezioni */
+.sezione-grafico,
+.sezione-badge,
+.sezione-statistiche {
+  margin-top: 2rem;
+  padding: 2rem;
+  background-color: #f9fdf9;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.sezione-grafico:hover,
+.sezione-badge:hover,
+.sezione-statistiche:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-6px);
+}
+
+/* Sezione grafico */
+.sezione-grafico {
+  grid-column: 1 / 2;
+  padding-bottom: 3.5rem;
+}
+
+/* Badge sistemati */
+.sezione-badge {
+  grid-column: 2 / 3;
+  background-color: #eaf6ff;
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  border-radius: 10px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.sezione-badge span {
+  background-color: #b9dbff;
+  border-radius: 14px;
+  padding: 0.3rem 0.85rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+/* Sezione statistiche full width */
+.sezione-statistiche {
+  grid-column: 1 / 3;
+  margin-top: 2rem;
+  padding: 2rem;
+}
+
+/* Layout superiore con grafico + badge */
+.riga-superiore {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr; /* più spazio a sinistra */
+  gap: 1.5rem;
+  grid-column: 1 / 3;
+}
+
+/* Riduci padding se serve */
+.riga-superiore .sezione-grafico,
+.riga-superiore .sezione-badge {
+  padding: 1.2rem 1.5rem;
+}
+
+/* Riga dati e tooltip */
+.riga-dato {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid #ddd;
+  cursor: default;
+}
+
+.etichetta {
+  font-weight: 600;
+  color: #444;
+  font-size: 1.05rem;
+}
+
+.valore {
+  color: #111;
+  font-size: 1.05rem;
+}
+
+/* Tooltip */
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  background-color: rgba(60, 60, 60, 0.9);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+
+.riga-dato:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Grafico */
+.grafico {
+  position: relative;
+  z-index: 5;
+  transform-origin: center center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  scale: 0.9;
+}
+
+.grafico:hover {
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+/* Testi nel grafico */
+.sezione-grafico p,
+.sezione-grafico .legenda {
+  margin-top: 1rem;
+  text-align: left;
+  color: #555;
+  font-size: 0.95rem;
+}

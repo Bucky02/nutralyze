@@ -8,7 +8,7 @@
   display: flex; /* Usa flexbox per layout verticale */
   flex-flow: column; /* Dispone i figli in colonna */
   margin: 10px;
-  border-radius: 2px;
+  border-radius: 12px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3), 0px 8px 20px rgba(0, 0, 0, 0.5);
   overflow: hidden; /* Niente scroll né fuoriuscite */
   align-items: center; /* Centra contenuti orizzontalmente */

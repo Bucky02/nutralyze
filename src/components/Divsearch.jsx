@@ -90,11 +90,14 @@ function Divsearch() {
         {risultati.length > 0 && (
           <ul className="listaAlimenti">
             {risultati.map((alimento) => (
-              <Link to="/datiAlimento">
-                <li key={alimento._id} className="nomeAlimento">
+              <li key={alimento._id} className="nomeAlimento">
+                <Link
+                  to={`/datiAlimento/${encodeURIComponent(alimento.Nome)}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
                   {alimento.Nome}
-                </li>
-              </Link>
+                </Link>
+              </li>
             ))}
           </ul>
         )}

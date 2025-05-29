@@ -1,0 +1,82 @@
+.badge-nutrizionale {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0.4rem 0.4rem 0 0;
+  color: white;
+  cursor: default;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.badge-nutrizionale:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Colori e leggibilità migliorata */
+
+/* Fondo verde -> testo bianco */
+.badge-calorie-basse {
+  background: linear-gradient(45deg, #4caf50, #388e3c);
+  color: white;
+}
+
+/* Fondo azzurro -> testo scuro */
+.badge-calorie-moderate {
+  background: linear-gradient(45deg, #bbdefb, #64b5f6);
+  color: #222;
+}
+
+/* Fondo rosso -> testo bianco */
+.badge-calorie-alte {
+  background: linear-gradient(45deg, #e53935, #b71c1c);
+  color: white;
+}
+
+.badge-proteine {
+  background: linear-gradient(45deg, #ab47bc, #7b1fa2);
+  color: white;
+}
+
+.badge-fibre {
+  background: linear-gradient(45deg, #8d6e63, #5d4037);
+  color: white;
+}
+
+.badge-zuccheri {
+  background: linear-gradient(45deg, #ffb74d, #fb8c00);
+  color: #222;
+}
+
+.badge-sale {
+  background: linear-gradient(45deg, #90a4ae, #607d8b);
+  color: white;
+}
+
+.badge-vitamina {
+  background: linear-gradient(45deg, #4fc3f7, #0288d1);
+  color: white;
+}
+
+.badge-ferro {
+  background: linear-gradient(45deg, #ef5350, #b71c1c);
+  color: white;
+}
+
+.badge-calcio {
+  background: linear-gradient(45deg, #4db6ac, #00796b);
+  color: white;
+}
+
+.badge-potassio {
+  background: linear-gradient(45deg, #aed581, #689f38);
+  color: #222;
+}
+
+.badge-grassi {
+  background: linear-gradient(45deg, #ff8a65, #e64a19);
+  color: white;
+}
