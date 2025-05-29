@@ -82,3 +82,28 @@
   align-items: center; /* centra orizzontalmente */
   margin-bottom: 20px; /* spazio sotto se vuoi distanziarlo */
 }
+
+.listaAlimenti {
+  list-style-type: none; /* niente pallini */
+  padding: 0;
+  margin: 1.5rem auto 0 auto; /* margine sopra e centrata orizzontalmente */
+  max-width: 400px; /* larghezza massima per non allungarsi troppo */
+  max-height: 250px; /* <- aggiunto limite altezza */
+  overflow-y: auto; /* <- aggiunto scrollbar verticale */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.85
+  ); /* sfondo chiaro semi-trasparente */
+  border-radius: 10px; /* angoli arrotondati */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* ombra leggera */
+  color: #333; /* testo scuro */
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.listaAlimenti li {
+  color: black; /* ma se il fondo è scuro, non si vede! */
+}
