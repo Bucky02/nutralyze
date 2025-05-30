@@ -1,40 +1,50 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <div className="header">
-      <div className="logo-container">
+    <div className="header-container">
+      <div className="header-logo-container">
         <Link to="/">
-          <img
-            src="/src/assets/logoIntero.png"
-            alt="Logo Nutralyze"
-            width="80px"
-            height="80px"
-          />
+          <img src="/src/assets/logoIntero.png" alt="Logo Nutralyze" />
         </Link>
+        <h1 className="header-site-title">Nutralyze</h1>
       </div>
 
-      <div className="title-container">
-        <p className="title">NUTRALYZE</p>
-      </div>
-
-      <div className="buttons-container">
+      <div className="header-buttons-container">
         <Link to="/accedi">
-          <button className="login-button">Accedi</button>
+          <button className="header-login-button">Accedi</button>
         </Link>
 
-        <div className="dropdown">
+        <div className="header-dropdown" ref={dropdownRef}>
           <button
-            className="secondary-button"
+            className={`header-secondary-button ${isOpen ? "open" : ""}`}
             onClick={() => setIsOpen((prev) => !prev)}
-          ></button>
+            aria-label="Toggle menu"
+          >
+            <span className="header-hamburger-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
 
           {isOpen && (
-            <div className="dropdown-content">
+            <div className="header-dropdown-content">
               <a href="#info1">Info 1</a>
               <a href="#info2">Info 2</a>
               <a href="#info3">Info 3</a>

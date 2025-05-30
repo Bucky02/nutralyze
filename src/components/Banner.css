@@ -1,0 +1,257 @@
+.banner-background {
+  position: relative;
+  width: 100vw;
+  height: 420px;
+  background-image: url("src/assets/bannerfoto.jpg");
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  overflow: hidden;
+  box-shadow: inset 0 8px 15px -10px rgba(0, 0, 0, 0.5);
+}
+
+.banner-background::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3); /* trasparenza sul background */
+  pointer-events: none;
+  z-index: 0;
+}
+
+.banner-header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px; /* aumentata per logo più grande */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 20px;
+  z-index: 10;
+}
+
+.logo-container img {
+  width: 120px; /* logo più grande */
+  height: 120px;
+  object-fit: contain;
+  cursor: pointer;
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.7));
+  margin-top: 20px;
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 11;
+}
+
+/* Bottone Accedi chiaro */
+.login-button {
+  background-color: rgba(255, 255, 240, 0.9); /* panna chiarissimo */
+  color: #333; /* testo scuro per contrasto */
+  width: 100px;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.login-button:hover {
+  background-color: rgba(255, 255, 240, 1);
+  transform: scale(1.05);
+}
+
+/* Hamburger button base - rimuovo immagine background e faccio hamburger animato */
+.secondary-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  width: 35px;
+  height: 35px;
+  position: relative;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.7));
+  transition: background-color 0.3s ease;
+}
+
+/* Hamburger icon container */
+.hamburger-icon {
+  width: 24px;
+  height: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Le tre linee dell'hamburger */
+.hamburger-icon span {
+  display: block;
+  height: 3px;
+  background-color: #fff; /* ora è bianco */
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* Animazione quando menu aperto */
+.secondary-button.open .hamburger-icon span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+  background-color: #fff; /* ora è bianco */
+}
+
+.secondary-button.open .hamburger-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.secondary-button.open .hamburger-icon span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+  background-color: #fff; /* ora è bianco */
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 45px; /* posizionato sotto il bottone hamburger */
+  right: 0;
+  background-color: white;
+  min-width: 180px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 20;
+  animation: fadeInDropdown 0.3s ease forwards;
+}
+
+.dropdown.open .dropdown-content {
+  display: block; /* mostra il dropdown quando .open */
+}
+
+/* Animazione comparsa dropdown */
+@keyframes fadeInDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Link nel menu */
+.dropdown-content a {
+  color: #333;
+  padding: 12px 20px;
+  text-decoration: none;
+  display: block;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: #f2f2f2;
+  color: #000;
+}
+
+.banner-overlay {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.25));
+  pointer-events: none;
+}
+
+.typing-title {
+  font-size: 4rem;
+  font-weight: 900;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.typing-paragraph {
+  font-size: 2.5rem;
+  margin-top: 1.8rem;
+  max-width: 1000px;
+  line-height: 1.7;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.banner-overlay a,
+.banner-overlay button {
+  pointer-events: auto; /* permetti clic su link e bottoni */
+}
+
+@media (max-width: 768px) {
+  .banner-header-overlay {
+    height: 70px; /* adattato per mobile */
+    padding: 0 10px;
+  }
+
+  .logo-container img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .login-button {
+    width: 80px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .secondary-button {
+    width: 28px;
+    height: 28px;
+  }
+
+  .hamburger-icon {
+    width: 20px;
+    height: 15px;
+  }
+
+  .dropdown-content {
+    min-width: 140px;
+    top: 40px;
+  }
+
+  .dropdown-content a {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+
+  .typing-title {
+    font-size: 2.2rem;
+  }
+
+  .typing-paragraph {
+    font-size: 1.4rem;
+  }
+}

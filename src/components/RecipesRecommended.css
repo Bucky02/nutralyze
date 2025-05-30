@@ -57,7 +57,7 @@
 
 .recipe-card h3 {
   padding: 0.75rem 1rem;
-  font-family: "Poppins", sans-serif;
+  font-family: "Raleway", system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 600;
   font-size: 1.1rem;
   text-align: center;
@@ -66,7 +66,7 @@
 .recipes-loading,
 .recipes-error {
   text-align: center;
-  font-family: "Poppins", sans-serif;
+  font-family: "Raleway", system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 1.2rem;
   color: #e74c3c;
   margin-top: 2rem;

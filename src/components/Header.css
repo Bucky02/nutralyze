@@ -1,160 +1,208 @@
-/* HEADER - Stile base */
-.header {
+.header-container {
   width: 100%;
-  background-color: rgb(245, 224, 164);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: #f5f5f0; /* colore chiaro, quasi bianco/avorio */
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15), 0px 4px 10px rgba(0, 0, 0, 0.1);
-  height: 70px; /* Altezza base */
-  padding: 0 20px;
+  height: 100px;
+  padding: 0 30px;
   box-sizing: border-box;
+  position: relative;
+  z-index: 1000;
+  box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  font-family: "Poppins", sans-serif;
+  user-select: none;
+}
+.header-site-title {
+  font-size: 4rem; /* più grande */
+  margin-left: 10px;
+  color: #2c3e50;
+  font-weight: 600;
+  user-select: none;
+  display: inline-block;
+  vertical-align: middle;
+  font-family: "Raleway", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-.buttons-container {
+.header-logo-container {
+  cursor: pointer;
+  padding-left: 0; /* o poco, tipo 10px */
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 0;
   display: flex;
-  flex-flow: row;
+  align-items: center;
+  gap: 12px; /* spazio tra logo e titolo */
+}
+
+.header-logo-container img {
+  user-select: none;
+  width: 100px;
+}
+
+.header-buttons-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Bottone hamburger senza sfondo */
+.header-secondary-button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: transparent; /* niente sfondo */
+  border-radius: 8px; /* puoi togliere se vuoi, mantiene gli angoli stondati */
+  cursor: pointer;
+  padding: 0;
+  display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.3s ease;
 }
 
-.secondary-button {
-  background-image: url("/src/assets/icons8-menu-50-2.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain; /* o cover, se vuoi riempire tutto */
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: transparent; /* se vuoi solo l'immagine */
-  cursor: pointer;
-  margin: 15px;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 5px;
-  font-size: 20px;
+.header-secondary-button:hover {
+  background-color: transparent; /* niente hover sul background */
 }
 
-.dropdown {
+.header-hamburger-icon {
+  display: inline-block;
+  width: 24px;
+  height: 18px;
+  position: relative;
+}
+
+.header-hamburger-icon span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: black; /* linee nere */
+  border-radius: 3px;
+  opacity: 1;
+  left: 0;
+  transition: all 0.3s ease;
+}
+
+.header-hamburger-icon span:nth-child(1) {
+  top: 0;
+}
+
+.header-hamburger-icon span:nth-child(2) {
+  top: 7.5px;
+}
+
+.header-hamburger-icon span:nth-child(3) {
+  bottom: 0;
+}
+
+/* Trasformazione in X */
+.header-secondary-button.open .header-hamburger-icon span:nth-child(1) {
+  top: 7.5px;
+  transform: rotate(45deg);
+}
+
+.header-secondary-button.open .header-hamburger-icon span:nth-child(2) {
+  opacity: 0;
+  left: -60px;
+}
+
+.header-secondary-button.open .header-hamburger-icon span:nth-child(3) {
+  bottom: 7.5px;
+  transform: rotate(-45deg);
+}
+
+.header-dropdown {
   position: relative;
   display: inline-block;
 }
 
-.dropdown-content {
+.header-dropdown-content {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 10px);
   right: 0;
-  background-color: white;
-  min-width: 160px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-  border-radius: 8px;
+  background-color: #2c3e50;
+  min-width: 180px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  z-index: 1100;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.dropdown-content a {
-  color: black;
-  padding: 10px 12px;
+.header-dropdown-content a {
+  color: #ecf0f1;
+  padding: 14px 20px;
   text-decoration: none;
   display: block;
+  font-weight: 600;
+  font-size: 16px;
+  transition: background-color 0.25s ease;
 }
 
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
+.header-dropdown-content a:hover {
+  background-color: #34495e;
+  color: #ffffff;
 }
 
-.login-button {
-  background-color: #2c3e50; /* Blu scuro elegante */
-  color: white; /* Testo bianco per contrasto */
-  width: 100px; /* Più largo, più leggibile */
-  height: 30px; /* Più alto, più cliccabile */
-  border: none; /* Nessun bordo classico */
-  border-radius: 10px; /* Angoli arrotondati */
-  font-family: "Poppins", sans-serif; /* Font moderno */
-  font-weight: 600; /* Testo un po' in grassetto */
-  font-size: 14px; /* Dimensione testo leggibile */
-  margin-right: 15px; /* Spazio a destra se affiancato ad altri elementi */
-  cursor: pointer; /* Cursore a forma di mano */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombra leggera per profondità */
-  transition: all 0.3s ease-in-out; /* Animazione fluida per hover */
-}
-
-.login-button:hover {
-  background-color: #1a252f; /* Colore più scuro al passaggio */
-  transform: scale(1.05); /* Leggero ingrandimento al passaggio */
-}
-
-@keyframes zoomIn {
-  0% {
-    transform: scale(
-      0.6
-    ); /* All'inizio è rimpicciolito al 60% della dimensione */
-    opacity: 0; /* Invisibile all'inizio */
-  }
-  100% {
-    transform: scale(1); /* Ritorna alla dimensione normale */
-    opacity: 1; /* Completamente visibile */
-  }
-}
-
-.title {
-  font-size: 2.5rem; /* Grandezza del testo (2.5 x base) */
-  font-weight: 700; /* Grassetto bello pieno */
-  letter-spacing: 3px; /* Spazio extra tra le lettere */
-  color: #2c3e50; /* Colore del testo: blu scuro elegante */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Ombra soft sotto il testo */
-  font-family: "Poppins", sans-serif; /* Font moderno, con fallback generico sans-serif */
-  text-transform: uppercase; /* Tutto maiuscolo anche se scritto minuscolo */
-  margin: 0; /* Nessuno spazio esterno */
-  animation: zoomIn 1s ease-out; /* Applica l’animazione "zoomIn", dura 1 secondo, parte veloce e finisce più lenta */
-}
-
-.title-container {
-  margin-left: 60px;
-}
-
-.logo-container {
+.header-login-button {
+  background-color: #2c3e50;
+  color: white;
+  width: 110px;
+  height: 38px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
   cursor: pointer;
-  padding-top: 8px; /* Spazio sopra per non toccare il bordo */
+  box-shadow: 0 6px 10px rgba(44, 62, 80, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 0 20px;
 }
 
-/* === MEDIA QUERY per schermi più piccoli (mobile/tablet) === */
+.header-login-button:hover {
+  background-color: #1a252f;
+  box-shadow: 0 8px 14px rgba(26, 37, 47, 0.7);
+  transform: scale(1.05);
+}
+
+/* MEDIA QUERY */
+
 @media (max-width: 768px) {
-  .header {
-    height: 50px; /* ancora più compatto su mobile */
-    padding: 0 10px;
-    flex-wrap: wrap; /* consente di andare a capo se serve */
+  .header-container {
+    height: 70px;
+    padding: 0 15px;
+    flex-wrap: wrap;
     justify-content: center;
   }
 
-  .title-container {
-    margin-left: 0;
-    flex-basis: 100%; /* titolo prende tutta la larghezza */
-    text-align: center;
-    margin-bottom: 5px;
-  }
-
-  .title {
-    font-size: 1.6rem; /* testo leggermente più piccolo */
-  }
-
-  .buttons-container {
-    flex-basis: 100%; /* bottoni sotto il titolo */
+  .header-buttons-container {
+    flex-basis: 100%;
     justify-content: center;
-    margin-top: 5px;
+    margin-top: 8px;
+    gap: 12px;
   }
 
-  .secondary-button {
-    width: 24px;
-    height: 24px;
-    margin: 5px;
-    padding: 5px 10px;
+  .header-secondary-button {
+    width: 36px;
+    height: 36px;
   }
 
-  .login-button {
+  .header-login-button {
     width: 90px;
-    height: 26px;
-    font-size: 12px;
-    margin-right: 0;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .header-dropdown-content {
+    min-width: 140px;
+  }
+
+  .header-dropdown-content a {
+    font-size: 14px;
+    padding: 12px 18px;
   }
 }
