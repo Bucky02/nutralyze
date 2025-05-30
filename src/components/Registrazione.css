@@ -1,0 +1,42 @@
+.registrazione-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.form-registrazione input {
+  display: block;
+  width: 100%;
+  padding: 0.6rem;
+  margin: 0.6rem 0;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.form-registrazione button {
+  padding: 0.8rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.errore {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: -0.4rem;
+}
+
+.torna {
+  align-self: flex-end;
+}
+
+.torna a {
+  padding: 6px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+}

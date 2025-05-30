@@ -46,6 +46,10 @@ function Calcolo() {
     );
   };
 
+  const rimuoviAlimento = (index) => {
+    setAlimentiSelezionati((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const totale = alimentiSelezionati.reduce(
     (acc, alimento) => {
       const q = alimento.quantita / 100;
@@ -55,7 +59,9 @@ function Calcolo() {
         calorie:
           acc.calorie +
           q * parseFloat(alimento["Energia, calorie (kcal)"] || 0),
-        carboidrati: acc.carboidrati,
+        carboidrati:
+          acc.carboidrati +
+          q * parseFloat(alimento["Glucidi, disponibili (g)"]),
       };
     },
     { proteine: 0, grassi: 0, calorie: 0, carboidrati: 0 }
@@ -144,6 +150,8 @@ function Calcolo() {
               const grassi = q * calcolaGrassi(alimento);
               const calorie =
                 q * parseFloat(alimento["Energia, calorie (kcal)"] || 0);
+              const carboidrati =
+                q * parseFloat(alimento["Glucidi, disponibili (g)"] || 0);
 
               return (
                 <li key={index}>
@@ -159,12 +167,19 @@ function Calcolo() {
                     style={{ width: "60px", marginLeft: "10px" }}
                   />
                   <span>g</span>
+                  <button
+                    onClick={() => rimuoviAlimento(index)}
+                    className="btn-cestino"
+                    title="Rimuovi alimento"
+                  >
+                    🗑️
+                  </button>
                   <div className="info-nutrizionali">
                     Proteine: {proteine.toFixed(1)}g<br />
                     Grassi: {grassi.toFixed(1)}g<br />
                     Calorie: {calorie.toFixed(1)}kcal
                     <br />
-                    Carboidrati: -- g
+                    Carboidrati: {carboidrati.toFixed(1)}g<br />
                   </div>
                 </li>
               );
@@ -178,7 +193,7 @@ function Calcolo() {
             <li>Totale calorie: {totale.calorie.toFixed(1)} kcal</li>
             <li>Proteine: {totale.proteine.toFixed(1)} g</li>
             <li>Grassi: {totale.grassi.toFixed(1)} g</li>
-            <li>Carboidrati: -- g</li>
+            <li>Carboidrati: {totale.carboidrati.toFixed(1)}g </li>
           </ul>
         </div>
       </div>

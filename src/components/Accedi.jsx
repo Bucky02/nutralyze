@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Accedi.css";
+import Registrazione from "./Registrazione";
 
 function Accedi() {
   return (
@@ -34,8 +35,17 @@ function Accedi() {
           />
         </div>
         <input type="submit" className="btn" value="Accedi" />
-        <div className="torna">
-          <Link to="/">Torna alla home</Link>
+        <div className="fine">
+          <div className="registra">
+            <Link to="/registrazione">
+              Non hai un account?
+              <br />
+              Registrati
+            </Link>
+          </div>
+          <div className="torna">
+            <Link to="/">Torna alla home</Link>
+          </div>
         </div>
       </div>
     </div>

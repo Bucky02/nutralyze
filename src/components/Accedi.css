@@ -5,7 +5,7 @@
   gap: 10px;
 }
 #barraDiRicerca {
-  width: 350px; /* Larghezza desiderata */
+  width: 450px; /* Larghezza desiderata */
   margin: 50px auto; /* Centra il box orizzontalmente */
   padding: 20px;
   border-radius: 10px;
@@ -28,4 +28,9 @@
   border: 1px solid #ccc; /* Bordo leggero */
   padding: 8px;
   border-radius: 4px;
+}
+
+.fine {
+  display: flex;
+  flex-direction: row;
 }

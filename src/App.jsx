@@ -5,6 +5,7 @@ import Search from "./components/Divsearch";
 import Diary from "./components/Divdiary";
 import Calcolo from "./components/Calcolo";
 import Accedi from "./components/Accedi";
+import Registrazione from "./components/Registrazione";
 import DatiAlimento from "./components/DatiAlimento";
 import Footer from "./components/Footer";
 import NutritionalTips from "./components/NutritionalTips";
@@ -17,8 +18,12 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* Se siamo in homepage mostra Banner, altrimenti Header */}
-      {location.pathname === "/" ? <Banner /> : <Header />}
+      {/* Se siamo in homepage mostra Banner,in alcuni nulla, altrimenti Header */}
+      {!["/", "/accedi", "/registrazione"].includes(location.pathname) ? (
+        <Header />
+      ) : location.pathname === "/" ? (
+        <Banner />
+      ) : null}
 
       <main className="main-content">
         <Routes>
@@ -46,6 +51,7 @@ function App() {
           <Route path="/calcolo" element={<Calcolo />} />
           <Route path="/accedi" element={<Accedi />} />
           <Route path="/datiAlimento/:nome" element={<DatiAlimento />} />
+          <Route path="/registrazione" element={<Registrazione />} />
         </Routes>
       </main>
       <Footer />
