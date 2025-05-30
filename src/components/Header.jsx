@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
+import Registrazione from "./Registrazione";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +46,7 @@ function Header() {
 
           {isOpen && (
             <div className="header-dropdown-content">
-              <a href="#info1">Info 1</a>
+              <a href="/registrazione">Registrati</a>
               <a href="#info2">Info 2</a>
               <a href="#info3">Info 3</a>
             </div>

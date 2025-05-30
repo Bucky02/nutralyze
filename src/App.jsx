@@ -12,6 +12,9 @@ import NutritionalTips from "./components/NutritionalTips";
 import RecipesRecommended from "./components/RecipesRecommended";
 import WhyChooseUs from "./components/WhyChooseUs";
 import Banner from "./components/Banner";
+import Admin from "./components/Admin";
+import AggiungiProdotto from "./components/AggiungiProdotto";
+import RimuoviProdotto from "./components/RimuoviProdotto";
 
 function App() {
   const location = useLocation();
@@ -19,7 +22,14 @@ function App() {
   return (
     <div className="app-container">
       {/* Se siamo in homepage mostra Banner,in alcuni nulla, altrimenti Header */}
-      {!["/", "/accedi", "/registrazione"].includes(location.pathname) ? (
+      {![
+        "/",
+        "/accedi",
+        "/registrazione",
+        "/admin",
+        "/aggiungiProdotto",
+        "/rimuoviProdotto",
+      ].includes(location.pathname) ? (
         <Header />
       ) : location.pathname === "/" ? (
         <Banner />
@@ -52,6 +62,9 @@ function App() {
           <Route path="/accedi" element={<Accedi />} />
           <Route path="/datiAlimento/:nome" element={<DatiAlimento />} />
           <Route path="/registrazione" element={<Registrazione />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/aggiungiProdotto" element={<AggiungiProdotto />} />
+          <Route path="/rimuoviProdotto" element={<RimuoviProdotto />} />
         </Routes>
       </main>
       <Footer />

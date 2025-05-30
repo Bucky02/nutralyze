@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Banner.css";
 import { TypeAnimation } from "react-type-animation";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +50,7 @@ const Banner = () => {
             {isOpen && (
               <div className="dropdown-content">
                 <a href="#">Home</a>
-                <a href="#">Profilo</a>
+                <a href="/registrazione">Registrati</a>
                 <a href="#">Impostazioni</a>
                 <a href="#">Logout</a>
               </div>
