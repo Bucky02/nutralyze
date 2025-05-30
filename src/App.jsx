@@ -9,6 +9,7 @@ import DatiAlimento from "./components/DatiAlimento";
 import Footer from "./components/Footer";
 import NutritionalTips from "./components/NutritionalTips";
 import RecipesRecommended from "./components/RecipesRecommended";
+import WhyChooseUs from "./components/WhyChooseUs";
 
 function App() {
   const location = useLocation();
@@ -22,11 +23,16 @@ function App() {
             path="/"
             element={
               <div className="main-layout">
-                <NutritionalTips /> {/* curiosità in alto */}
-                <RecipesRecommended />
+                <div className="nutritionaltips">
+                  <NutritionalTips />
+                </div>
                 <div className="cards-row">
                   <Search /> {/* card con video di sfondo */}
                   <Diary /> {/* seconda card con button e video */}
+                </div>
+                <div className="divbox">
+                  <RecipesRecommended />
+                  <WhyChooseUs />
                 </div>
               </div>
             }

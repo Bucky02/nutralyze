@@ -9,19 +9,10 @@
   background-color: #fafafa;
   font-family: "Poppins", sans-serif;
 }
-
-.nutritional-tips {
-  width: 100%;
-  padding: 1.2rem 1.8rem;
-  background-color: #e6f2ff; /* azzurro molto chiaro */
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(30, 90, 150, 0.15);
-  font-size: 1.1rem;
-  color: #2c3e50;
-  text-align: center;
-  font-weight: 500;
+.nutritionaltips {
+  display: flex;
+  justify-content: center;
 }
-
 .cards-row {
   display: flex;
   flex-direction: row;
@@ -39,14 +30,55 @@
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
+.cards-row > * {
+  transition: all 0.15s ease-in-out;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Ombra a riposo */
+}
+
 .cards-row > *:hover {
+  transform: translateY(2px) scale(0.99); /* Solo un leggero abbassamento e restringimento */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Ombra ravvicinata per effetto premuto */
+}
+
+.divbox {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  align-items: stretch; /* Allinea in altezza */
+}
+
+.divbox > *:hover {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
   transform: translateY(-5px);
 }
 
-/* RESPONSIVE per mobile */
+.divbox > :first-child {
+  flex: 1.8; /* Più largo */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+  padding: 1rem;
+  box-sizing: border-box;
+  /* NO scroll, no height fixed */
+}
+
+.divbox > :last-child {
+  flex: 1; /* Più piccolo */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+  padding: 1rem;
+  box-sizing: border-box;
+  /* NO scroll, no height fixed */
+}
+
+/* MOBILE */
 @media (max-width: 768px) {
-  .cards-row {
+  .divbox {
     flex-direction: column;
+  }
+  .divbox > * {
+    flex: none;
+    margin-bottom: 1rem;
   }
 }

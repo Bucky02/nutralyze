@@ -1,27 +1,25 @@
 .nutritional-tips {
-  background: linear-gradient(
-    135deg,
-    #f5f5dc,
-    #e6e1b3
-  ); /* gradiente beige caldo */
+  background: linear-gradient(135deg, #f5f5dc, #e6e1b3);
   border-radius: 15px;
-  padding: 1.2rem 2rem;
-  max-width: 450px;
-  margin: 25px auto;
+  padding: 1rem 1.5rem; /* leggermente ridotto */
   font-family: "Poppins", sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  color: #2c3e50; /* un blu scuro più deciso */
+  color: #2c3e50;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12),
     inset 0 0 15px rgba(255, 255, 255, 0.6);
   text-align: center;
-  min-height: 4em;
+  min-height: 3.2em;
   display: flex;
   align-items: center;
   justify-content: center;
-  user-select: none; /* per non far selezionare il testo */
+  user-select: none;
   transition: box-shadow 0.3s ease;
   cursor: default;
+  max-width: 600px; /* o anche 800px se vuoi più larga */
+  width: 100%;
+
+  align-self: flex-start; /* 👈 fondamentale */
 }
 
 .nutritional-tips:hover {

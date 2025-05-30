@@ -1,0 +1,69 @@
+.why-section {
+  max-width: 900px;
+  padding: 1rem 1.5rem;
+  font-family: "Poppins", sans-serif;
+  color: #2c3e50;
+  background: #f9f7ef;
+  border-radius: 15px;
+
+  /* Ombra più forte e definita */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 8px 15px rgba(0, 0, 0, 0.4);
+
+  user-select: none;
+  transition: box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.why-section:hover {
+  transform: translateY(2px) scale(0.99); /* effetto pressione leggera */
+  box-shadow: 0 6px 16px rgba(100, 90, 70, 0.15),
+    inset 0 0 10px rgba(255, 255, 255, 0.4); /* ombra più vicina */
+  background: #f6f3e8; /* leggermente più scuro per dare profondità */
+  color: #1a2a40;
+}
+
+.why-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #374045;
+}
+
+.features-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.feature {
+  flex: 1 1 40%;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(210, 180, 140, 0.3);
+  padding: 1rem 1.5rem;
+  transition: box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+  cursor: default;
+  color: #2c3e50;
+}
+
+.feature:hover {
+  box-shadow: 0 12px 30px rgba(180, 140, 90, 0.5);
+  background: #fff9e6;
+  color: #1a2a40;
+}
+
+.feature-icon {
+  font-size: 1.8rem;
+  margin-right: 1rem;
+  color: #3a7d44;
+  user-select: none;
+}
+
+.feature-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+  user-select: none;
+}

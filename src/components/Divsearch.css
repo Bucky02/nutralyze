@@ -6,7 +6,8 @@
   background-repeat: no-repeat; /* Niente ripetizione */
   margin: 10px; /* Spazio attorno */
   border-radius: 12px; /* Angoli leggermente arrotondati */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3), 0px 8px 20px rgba(0, 0, 0, 0.5); /* Ombra profonda */
+  /* 👇 Ombra profonda, visibile anche su sfondo chiaro */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15), 0px 4px 8px rgba(0, 0, 0, 0.1);
   position: relative; /* Serve per posizionare assolutamente il video */
   overflow: hidden; /* Niente scroll né fuoriuscite */
   align-items: center; /* Centra contenuti orizzontalmente */
