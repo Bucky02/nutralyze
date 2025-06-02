@@ -55,4 +55,16 @@ router.get("/cerca", async (req, res) => {
   }
 });
 
+// 🍽 GET /alimenti/:id - Recupera dettagli di un alimento
+router.get("/:id", async (req, res) => {
+  try {
+    const alimento = await Alimento.findById(req.params.id);
+    if (!alimento)
+      return res.status(404).json({ message: "Alimento non trovato" });
+    res.json(alimento);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;
