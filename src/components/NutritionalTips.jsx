@@ -15,6 +15,16 @@ const tips = [
   "Il cioccolato fondente (minimo 70% cacao) è ricco di flavonoidi, potenti antiossidanti.",
   "Mangiare lentamente favorisce la digestione e riduce il rischio di sovraccarico calorico.",
   "La caffeina, in dosi moderate, può migliorare l’attenzione e la performance cognitiva.",
+  "I legumi sono una fonte eccellente di proteine vegetali e ferro.",
+  "Una colazione equilibrata migliora la concentrazione durante la giornata.",
+  "Le verdure a foglia verde sono ricche di vitamina K e antiossidanti.",
+  "L’avocado è ricco di grassi buoni e potassio, più delle banane!",
+  "Il magnesio presente nei semi di zucca favorisce il rilassamento muscolare.",
+  "Gli alimenti fermentati come lo yogurt e il kefir migliorano la flora intestinale.",
+  "Consumare troppi zuccheri semplici può portare a picchi glicemici e cali di energia.",
+  "Masticare lentamente aiuta il senso di sazietà e la digestione.",
+  "Un’alimentazione colorata è spesso indice di varietà e ricchezza di nutrienti.",
+  "L’olio extravergine d’oliva è ricco di antiossidanti e grassi monoinsaturi benefici.",
 ];
 
 export default function NutritionalTips() {

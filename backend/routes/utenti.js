@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Utente = require("../models/Utente");
+const Utente = require("../models/Utenti");
 const bcrypt = require("bcrypt");
 
 // ➕ POST /utenti - Registrazione nuovo utente
@@ -32,12 +32,10 @@ router.post("/", async (req, res) => {
     });
 
     const salvato = await nuovoUtente.save();
-    res
-      .status(201)
-      .json({
-        message: "Utente registrato con successo",
-        utenteId: salvato._id,
-      });
+    res.status(201).json({
+      message: "Utente registrato con successo",
+      utenteId: salvato._id,
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

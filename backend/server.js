@@ -19,6 +19,10 @@ app.use(express.json());
 // ✅ Rotte
 const alimentiRoutes = require("./routes/alimenti");
 app.use("/api/alimenti", alimentiRoutes);
+const utentiRouter = require("./routes/utenti");
+app.use("/api/utenti", utentiRouter);
+const pastiRouter = require("./routes/pasti");
+app.use("/api/pasti", pastiRouter);
 
 // ✅ Connessione MongoDB
 mongoose

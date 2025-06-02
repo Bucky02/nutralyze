@@ -24,6 +24,9 @@ function DatiAlimento() {
     "Colesterolo (mg)":
       "Sostanza lipidica che può influire sulla salute cardiovascolare.",
     "Zuccheri (g)": "Quantità di zuccheri semplici contenuti nell’alimento.",
+    "Glucidi, disponibili (g)":
+      "Carboidrati disponibili pronti all’assorbimento.",
+    "Amido (g)": "Forma complessa di carboidrato, spesso presente nei cereali.",
     "Fibra alimentare (g)":
       "Importante per la digestione e la salute intestinale.",
     "Proteine (g)": "Nutriente essenziale per muscoli e tessuti.",
@@ -34,10 +37,20 @@ function DatiAlimento() {
       "Vitamina utile per vista e sistema immunitario.",
     "Attività di vitamina A, RAE (µg-RE)":
       "Altro modo per esprimere l’attività della vitamina A.",
+    "Attività di beta-carotene (µg-BCE)": "Precursore della vitamina A.",
+    "Beta-carotene (µg)":
+      "Pigmento vegetale, antiossidante e precursore della vitamina A.",
     "Vitamina B1 (tiamina) (mg)":
       "Vitamina del gruppo B, importante per l’energia.",
     "Vitamina B2 (riboflavina) (mg)":
       "Aiuta la produzione di energia e la salute della pelle.",
+    "Vitamina B6 (piridossina) (mg)":
+      "Importante per il metabolismo delle proteine.",
+    "Vitamina B12 (cobalamina) (µg)":
+      "Essenziale per la formazione dei globuli rossi.",
+    "Niacina (mg)": "Vitamina B3, essenziale per il metabolismo energetico.",
+    "Folati (µg)": "Fondamentali per la sintesi del DNA.",
+    "Acido pantotenico (mg)": "Contribuisce alla produzione di energia.",
     "Vitamina C (acido ascorbico) (mg)":
       "Antiossidante e supporto immunitario.",
     "Vitamina D (calciferolo) (µg)":
@@ -51,7 +64,9 @@ function DatiAlimento() {
     "Fosforo (P) (mg)": "Forma ossa e partecipa al metabolismo.",
     "Ferro (Fe) (mg)": "Trasporta ossigeno nel sangue.",
     "Iodio (I) (µg)": "Essenziale per la tiroide.",
-    "Zinco (Zn) (mg)": "Importante per il sistema immunitario.",
+    "Zinco (Zn)  (mg)": "Importante per il sistema immunitario.",
+    "Selenio (Se) (µg)":
+      "Minerale con funzione antiossidante e supporto immunitario.",
   };
 
   useEffect(() => {

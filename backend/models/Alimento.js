@@ -1,28 +1,39 @@
 const mongoose = require("mongoose");
 
-// Definizione dello schema (puoi adattare i tipi in base al tuo dataset!)
 const AlimentoSchema = new mongoose.Schema({
   ID: Number,
   Nome: String,
   Categoria: String,
   "Unità di riferimento": String,
-  "Energia, kilojoules (kJ)": String,
-  "Energia, calorie (kcal)": String,
+  "Energia, kilojoules (kJ)": Number,
+  "Energia, calorie (kcal)": Number,
+  "Lipidi, totali (g)": String,
   "Acidi grassi, saturi (g)": String,
   "Acidi grassi, monoinsaturi (g)": String,
   "Acidi grassi, polinsaturi (g)": String,
   "Colesterolo (mg)": String,
+  "Glucidi, disponibili (g)": String,
   "Zuccheri (g)": String,
+  "Amido (g)": String,
   "Fibra alimentare (g)": String,
   "Proteine (g)": String,
   "Sale (NaCl) (g)": String,
   "Alcool (g)": String,
   "Acqua (g)": String,
-  "Attività di vitamina A RE (µg-RE)": String,
-  "Attività di vitamina A RAE (µg-RE)": String,
+  "Attività di vitamina A, RE (µg-RE)": String,
+  "Attività di vitamina A, RAE (µg-RE)": String,
+  "Attività di beta-carotene (µg-BCE)": String,
+  "Beta-carotene (µg)": String,
   "Vitamina B1 (tiamina) (mg)": String,
   "Vitamina B2 (riboflavina) (mg)": String,
+  "Vitamina B6 (piridossina) (mg)": String,
+  "Vitamina B12 (cobalamina) (µg)": String,
+  "Niacina (mg)": String,
+  "Folati (µg)": String,
+  "Acido pantotenico (mg)": String,
+  "Vitamina C (acido ascorbico) (mg)": String,
   "Vitamina D (calciferolo) (µg)": String,
+  "Vitamina E (α-tocoferolo) (mg)": String,
   "Potassio (K) (mg)": String,
   "Sodio (Na) (mg)": String,
   "Cloro (Cl) (mg)": String,
@@ -32,7 +43,8 @@ const AlimentoSchema = new mongoose.Schema({
   "Ferro (Fe) (mg)": String,
   "Iodio (I) (µg)": String,
   "Zinco (Zn)  (mg)": String,
+  "Selenio (Se) (µg)": String,
 });
 
 // Esportazione del modello
-module.exports = mongoose.model("Alimento", AlimentoSchema, "giochi");
+module.exports = mongoose.model("Alimento", AlimentoSchema, "alimentiSt");

@@ -8,7 +8,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 function GraficoNutrizionale({ dati }) {
   const proteine = Number(dati["Proteine (g)"]?.replace(",", ".") || 0);
   const carboidrati = Number(
-    dati["Carboidrati disponibili (g)"]?.replace(",", ".") || 0
+    dati["Glucidi, disponibili (g)"]?.replace(",", ".") || 0
   );
   const grassi = Number(dati["Lipidi, totali (g)"]?.replace(",", ".") || 0);
   const fibra = Number(dati["Fibra alimentare (g)"]?.replace(",", ".") || 0);

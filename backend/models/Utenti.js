@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const UtenteSchema = new mongoose.Schema({
   username: {
@@ -27,9 +28,21 @@ const UtenteSchema = new mongoose.Schema({
   },
   ruolo: {
     type: String,
-    enum: ["utente", "admin"], // solo questi due valori
-    default: "utente", // valore di default
+    enum: ["utente", "admin"],
+    default: "utente",
   },
+});
+
+// Pre-save hook per criptare la password
+UtenteSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = mongoose.model("Utente", UtenteSchema, "utenti");
