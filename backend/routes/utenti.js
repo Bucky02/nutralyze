@@ -10,12 +10,10 @@ router.post("/", async (req, res) => {
     const { username, email, password, dataDiNascita, numeroTelefono, ruolo } =
       req.body;
 
-    // Controllo base
     if (!username || !email || !password || !dataDiNascita || !numeroTelefono) {
       return res.status(400).json({ message: "Campi obbligatori mancanti" });
     }
 
-    // Verifica che email o username non siano già registrati
     const esisteUtente = await Utente.findOne({
       $or: [{ email }, { username }],
     });
@@ -26,7 +24,7 @@ router.post("/", async (req, res) => {
     const nuovoUtente = new Utente({
       username,
       email,
-      password, // verrà criptata dal pre-save hook nel modello
+      password, // criptata dal pre-save hook
       dataDiNascita,
       numeroTelefono,
       ruolo: ruolo || "utente",
@@ -42,29 +40,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// 🔍 GET /utenti - Recupera tutti gli utenti (senza password!)
-router.get("/", async (req, res) => {
-  try {
-    const utenti = await Utente.find().select("-password");
-    res.json(utenti);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// 🔍 GET /utenti/:id - Recupera un utente specifico (senza password!)
-router.get("/:id", async (req, res) => {
-  try {
-    const utente = await Utente.findById(req.params.id).select("-password");
-    if (!utente) return res.status(404).json({ message: "Utente non trovato" });
-    res.json(utente);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// 🔐 POST /utenti/login - Login utente (verifica password)
-// 🔐 POST /utenti/login - Login utente (verifica password e genera token)
+// 🔐 POST /utenti/login
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -77,7 +53,6 @@ router.post("/login", async (req, res) => {
     const match = await bcrypt.compare(password, utente.password);
     if (!match) return res.status(401).json({ message: "Credenziali errate" });
 
-    // ✅ Genera JWT
     const token = jwt.sign(
       {
         id: utente._id,
@@ -85,12 +60,12 @@ router.post("/login", async (req, res) => {
         username: utente.username,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" } // opzionale: durata del token
+      { expiresIn: "1h" }
     );
 
     res.json({
       message: "Login effettuato",
-      token, // lo userai lato frontend
+      token,
       utente: {
         id: utente._id,
         ruolo: utente.ruolo,
@@ -98,6 +73,54 @@ router.post("/login", async (req, res) => {
         email: utente.email,
       },
     });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// 🔍 GET /utenti - Tutti gli utenti
+router.get("/", async (req, res) => {
+  try {
+    const utenti = await Utente.find().select("-password");
+    res.json(utenti);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// 🔍 GET /utenti/:id - Dettaglio singolo utente
+router.get("/:id", async (req, res) => {
+  try {
+    const utente = await Utente.findById(req.params.id).select("-password");
+    if (!utente) return res.status(404).json({ message: "Utente non trovato" });
+    res.json(utente);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// 🔍 GET /utenti/cerca/:username - Cerca utente per username esatto o parziale
+router.get("/cerca/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+    const utenti = await Utente.find({
+      username: { $regex: new RegExp(username, "i") },
+    }).select("-password");
+
+    res.json(utenti);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// ❌ DELETE /utenti/elimina/:id
+router.delete("/elimina/:id", async (req, res) => {
+  try {
+    const utente = await Utente.findByIdAndDelete(req.params.id);
+    if (!utente) {
+      return res.status(404).json({ message: "Utente non trovato" });
+    }
+    res.json({ message: "Utente eliminato correttamente" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

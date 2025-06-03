@@ -41,7 +41,15 @@ function Accedi() {
 
       setTimeout(() => {
         setShowAlert(false);
-        navigate("/");
+
+        // Recupera ruolo utente
+        const ruolo = data.utente.ruolo; // o data.utente.role, dipende da come lo chiami nel backend
+
+        if (ruolo === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       }, 2000);
     } catch (error) {
       setAlertMessage("Errore di connessione");

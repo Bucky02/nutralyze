@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
+
 import Header from "./components/Header";
 import Search from "./components/Divsearch";
 import Diary from "./components/Divdiary";
@@ -15,21 +16,20 @@ import Banner from "./components/Banner";
 import Admin from "./components/Admin";
 import AggiungiProdotto from "./components/AggiungiProdotto";
 import RimuoviProdotto from "./components/RimuoviProdotto";
+import PrivateRouteAdmin from "./components/PrivateRouteAdmin";
+import HomePage from "./components/HomePage";
 
 function App() {
   const location = useLocation();
 
+  const adminRoutes = ["/admin", "/aggiungiProdotto", "/rimuoviProdotto"];
+
   return (
     <div className="app-container">
-      {/* Se siamo in homepage mostra Banner,in alcuni nulla, altrimenti Header */}
-      {![
-        "/",
-        "/accedi",
-        "/registrazione",
-        "/admin",
-        "/aggiungiProdotto",
-        "/rimuoviProdotto",
-      ].includes(location.pathname) ? (
+      {/* Header o Banner a seconda della pagina */}
+      {!["/", "/accedi", "/registrazione", ...adminRoutes].includes(
+        location.pathname
+      ) ? (
         <Header />
       ) : location.pathname === "/" ? (
         <Banner />
@@ -37,38 +37,43 @@ function App() {
 
       <main className="main-content">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                {/* Solo contenuto homepage, Banner già mostrato sopra */}
-                <div className="main-layout">
-                  <div className="nutritionaltips">
-                    <NutritionalTips />
-                  </div>
-                  <div className="cards-row">
-                    <Search />
-                    <Diary />
-                  </div>
-                  <div className="divbox">
-                    <RecipesRecommended />
-                    <WhyChooseUs />
-                  </div>
-                </div>
-              </>
-            }
-          />
+          <Route path="/" element={<HomePage />} />
           <Route path="/calcolo" element={<Calcolo />} />
           <Route path="/accedi" element={<Accedi />} />
-          <Route path="/datiAlimento/:nome" element={<DatiAlimento />} />
           <Route path="/registrazione" element={<Registrazione />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/aggiungiProdotto" element={<AggiungiProdotto />} />
-          <Route path="/rimuoviProdotto" element={<RimuoviProdotto />} />
+          <Route path="/datiAlimento/:nome" element={<DatiAlimento />} />
+
+          {/* Rotte protette per admin */}
+          <Route
+            path="/admin"
+            element={
+              <PrivateRouteAdmin>
+                <Admin />
+              </PrivateRouteAdmin>
+            }
+          />
+          <Route
+            path="/aggiungiProdotto"
+            element={
+              <PrivateRouteAdmin>
+                <AggiungiProdotto />
+              </PrivateRouteAdmin>
+            }
+          />
+          <Route
+            path="/rimuoviProdotto"
+            element={
+              <PrivateRouteAdmin>
+                <RimuoviProdotto />
+              </PrivateRouteAdmin>
+            }
+          />
         </Routes>
       </main>
+
       <Footer />
     </div>
   );
 }
+
 export default App;
