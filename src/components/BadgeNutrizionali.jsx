@@ -17,7 +17,7 @@ function BadgeNutrizionali({ dati }) {
   const sale = Number(dati["Sale (NaCl) (g)"]?.replace(",", ".") || 0);
   const ferro = Number(dati["Ferro (Fe) (mg)"]?.replace(",", ".") || 0);
   const calcio = Number(dati["Calcio (Ca) (mg)"]?.replace(",", ".") || 0);
-  const kcal = Number(dati["Energia, calorie (kcal)"]?.replace(",", ".") || 0);
+  const kcal = Number(dati["Energia, calorie (kcal)"] ?? 0);
 
   if (kcal > 0 && kcal < 40)
     badges.push({

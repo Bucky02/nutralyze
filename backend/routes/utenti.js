@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Utente = require("../models/Utenti");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // ➕ POST /utenti - Registrazione nuovo utente
 router.post("/", async (req, res) => {
@@ -63,6 +64,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // 🔐 POST /utenti/login - Login utente (verifica password)
+// 🔐 POST /utenti/login - Login utente (verifica password e genera token)
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -75,11 +77,26 @@ router.post("/login", async (req, res) => {
     const match = await bcrypt.compare(password, utente.password);
     if (!match) return res.status(401).json({ message: "Credenziali errate" });
 
-    // Login riuscito (qui puoi gestire JWT o sessioni)
+    // ✅ Genera JWT
+    const token = jwt.sign(
+      {
+        id: utente._id,
+        ruolo: utente.ruolo,
+        username: utente.username,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" } // opzionale: durata del token
+    );
+
     res.json({
       message: "Login effettuato",
-      utenteId: utente._id,
-      ruolo: utente.ruolo,
+      token, // lo userai lato frontend
+      utente: {
+        id: utente._id,
+        ruolo: utente.ruolo,
+        username: utente.username,
+        email: utente.email,
+      },
     });
   } catch (err) {
     res.status(500).json({ message: err.message });

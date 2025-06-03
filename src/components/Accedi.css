@@ -1,36 +1,223 @@
-.body {
+/* Contenitore che affianca immagine e form */
+.accedi-wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* di default, ma utile sapere */
-  gap: 10px;
+  justify-content: center; /* centro tutto orizzontalmente */
+  align-items: center;
+  height: 100vh;
+  width: 100vw; /* prende tutta la larghezza viewport */
+  gap: 2rem; /* distanza tra immagine e form */
+  background: linear-gradient(135deg, #f6f9e9, #d0e8c5);
+  font-family: "Segoe UI", sans-serif;
+  box-sizing: border-box;
+  padding: 0 1.5rem;
+  overflow: hidden; /* evita scroll orizzontale */
 }
-#barraDiRicerca {
-  width: 450px; /* Larghezza desiderata */
-  margin: 50px auto; /* Centra il box orizzontalmente */
-  padding: 20px;
+
+/* Colonna sinistra con immagine */
+.accedi-immagine-container {
+  flex-basis: 500px; /* box immagini un po' più largo */
+  flex-shrink: 0;
+  height: 470px; /* leggermente più alto */
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 15px; /* angoli arrotondati per un effetto più morbido */
+  overflow: hidden; /* per non far uscire l’ombra dai bordi */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(0, 0, 0, 0.05)
+  );
+  backdrop-filter: blur(4px); /* leggero sfumato glassmorphism */
+}
+
+/* Box singoli immagini */
+.accedi-box {
+  position: relative;
+  width: 50%;
+  height: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 1.2rem;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  filter: brightness(0.85);
+  cursor: default;
+}
+
+.accedi-box:hover {
+  filter: brightness(1);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.accedi-box-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none; /* per non interferire con l'hover del box */
+}
+
+/* Colonna destra con il form */
+.accedi-container {
+  flex: 1.2;
+  max-width: 500px; /* da 450 a 550px */
+  max-height: 95vh; /* più alto per stare meglio con l’immagine */
+  background: rgba(255, 255, 255, 0.75);
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(75, 119, 92, 0.15);
+  box-sizing: border-box;
+  max-height: 90vh;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.5s forwards;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Animazione fadeInUp */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Titolo e sottotitolo */
+.accedi-container h2 {
+  color: #4b775c;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.accedi-container p {
+  color: #3d614c;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Campi input */
+.accedi-form input {
+  display: block;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
   border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  color: #333333;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.torna {
-  align-self: flex-end;
+.accedi-form input:focus {
+  border-color: #4b775c;
+  outline: none;
+  box-shadow: 0 0 8px rgba(75, 119, 92, 0.6);
 }
 
-.torna a {
-  padding: 6px 12px;
-  border-radius: 5px;
+/* Pulsante di invio */
+.accedi-form button {
+  padding: 0.9rem;
+  background-color: #2f4f3f;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.1s;
+}
+
+.accedi-form button:hover {
+  background-color: #244033;
+  box-shadow: 0 0 12px #2f4f3f;
+}
+
+.accedi-form button:active {
+  box-shadow: 0 0 12px #2f4f3f;
+  transform: scale(0.98);
+}
+
+/* Messaggio di errore con animazione shake */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.accedi-errore {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: -0.4rem;
+  margin-bottom: 0.8rem;
+  animation: shake 0.4s;
+}
+
+/* Messaggio server */
+.accedi-messaggio-server {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #4b775c;
+  text-align: center;
+}
+
+/* Link "Torna alla home" */
+.accedi-torna {
+  margin-top: 1.2rem;
+  text-align: center;
+}
+
+.accedi-torna a {
+  color: #2f4f3f;
+  font-weight: bold;
   text-decoration: none;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+  border-radius: 6px;
+  transition: background-color 0.2s;
 }
 
-.txt {
-  background-color: white; /* Sfondo bianco */
-  color: black; /* Colore del testo */
-  border: 1px solid #ccc; /* Bordo leggero */
-  padding: 8px;
-  border-radius: 4px;
+.accedi-torna a:hover {
+  background-color: #cfe6da;
 }
 
-.fine {
-  display: flex;
-  flex-direction: row;
+/* Media query per mobile */
+@media (max-width: 768px) {
+  .accedi-wrapper {
+    flex-direction: column;
+    padding: 1rem;
+    height: auto;
+  }
+
+  .accedi-immagine-container,
+  .accedi-container {
+    flex: none;
+    max-width: 100%;
+    margin-left: 0;
+    max-height: none;
+  }
+
+  .accedi-immagine-container {
+    margin-bottom: 1.5rem;
+    flex-basis: auto;
+  }
 }

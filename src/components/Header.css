@@ -16,6 +16,13 @@
   font-family: "Poppins", sans-serif;
   user-select: none;
 }
+.username-highlight {
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  font-size: 1.1rem;
+  margin-right: 10px; /* Aggiunto spazio a sinistra */
+}
 .header-site-title {
   font-size: 4rem; /* più grande */
   margin-left: 10px;
