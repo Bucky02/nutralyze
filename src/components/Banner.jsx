@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Logout from "./Logout"; // importa il componente Logout
 import "./Banner.css";
 import { TypeAnimation } from "react-type-animation";
+import bannerFoto from "../assets/bannerfoto.jpg";
 
 const Banner = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,10 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className="banner-background" style={{ position: "relative" }}>
+    <div
+      className="banner-background"
+      style={{ position: "relative", backgroundImage: `url(${bannerFoto})` }}
+    >
       <div className="banner-header-overlay">
         <div className="logo-container">
           <Link to="/">

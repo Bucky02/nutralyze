@@ -1,6 +1,7 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useMatch } from "react-router-dom";
 import "./App.css";
 
+// Componenti
 import Header from "./components/Header";
 import Search from "./components/Divsearch";
 import Diary from "./components/Divdiary";
@@ -16,62 +17,72 @@ import Banner from "./components/Banner";
 import Admin from "./components/Admin";
 import AggiungiProdotto from "./components/AggiungiProdotto";
 import RimuoviProdotto from "./components/RimuoviProdotto";
-import PrivateRouteAdmin from "./components/PrivateRouteAdmin";
+import PrivateRoute from "./components/PrivateRoute";
 import HomePage from "./components/HomePage";
+import PaginaNonTrovata from "./components/PaginaNonTrovata";
 
 function App() {
   const location = useLocation();
+  const isPaginaNotFound = useMatch("*")?.pathname === location.pathname;
 
   const adminRoutes = ["/admin", "/aggiungiProdotto", "/rimuoviProdotto"];
+  const noHeaderRoutes = ["/accedi", "/registrazione", ...adminRoutes];
 
   return (
     <div className="app-container">
-      {/* Header o Banner a seconda della pagina */}
-      {!["/", "/accedi", "/registrazione", ...adminRoutes].includes(
-        location.pathname
-      ) ? (
-        <Header />
-      ) : location.pathname === "/" ? (
-        <Banner />
-      ) : null}
+      {/* Banner sulla home */}
+      {location.pathname === "/" && <Banner key={location.pathname} />}
+
+      {/* Header su tutte le altre pagine tranne login/registrazione/admin/404 */}
+      {location.pathname !== "/" &&
+        !noHeaderRoutes.includes(location.pathname) &&
+        !isPaginaNotFound && <Header />}
 
       <main className="main-content">
         <Routes>
+          {/* Pubbliche */}
           <Route path="/" element={<HomePage />} />
           <Route path="/calcolo" element={<Calcolo />} />
           <Route path="/accedi" element={<Accedi />} />
           <Route path="/registrazione" element={<Registrazione />} />
           <Route path="/datiAlimento/:nome" element={<DatiAlimento />} />
 
-          {/* Rotte protette per admin */}
+          {/* Rotte protette solo per admin */}
           <Route
             path="/admin"
             element={
-              <PrivateRouteAdmin>
+              <PrivateRoute ruoloRichiesto="admin">
                 <Admin />
-              </PrivateRouteAdmin>
+              </PrivateRoute>
             }
           />
           <Route
             path="/aggiungiProdotto"
             element={
-              <PrivateRouteAdmin>
+              <PrivateRoute ruoloRichiesto="admin">
                 <AggiungiProdotto />
-              </PrivateRouteAdmin>
+              </PrivateRoute>
             }
           />
           <Route
             path="/rimuoviProdotto"
             element={
-              <PrivateRouteAdmin>
+              <PrivateRoute ruoloRichiesto="admin">
                 <RimuoviProdotto />
-              </PrivateRouteAdmin>
+              </PrivateRoute>
             }
           />
+
+          {/* Pagina 404 */}
+          <Route path="/paginaNonTrovata" element={<PaginaNonTrovata />} />
+          <Route path="*" element={<PaginaNonTrovata />} />
         </Routes>
       </main>
 
-      <Footer />
+      {/* Footer su tutte le altre pagine tranne login/registrazione/admin/404 */}
+      {!noHeaderRoutes.includes(location.pathname) && !isPaginaNotFound && (
+        <Footer />
+      )}
     </div>
   );
 }

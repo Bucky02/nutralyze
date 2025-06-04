@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import "./DatiAlimento.css";
 import BadgeNutrizionali from "./BadgeNutrizionali"; // se usi export default
 import GraficoNutrizionale from "./GraficoNutrizionale";
+import { useParams, useNavigate } from "react-router-dom";
 
 function DatiAlimento() {
   const { nome } = useParams();
   const [dati, setDati] = useState(null);
   const [errore, setErrore] = useState(null);
+  const navigate = useNavigate();
 
   const campi = {
     "Energia, kilojoules (kJ)":
@@ -79,7 +80,7 @@ function DatiAlimento() {
         );
         const json = await res.json();
         if (json.length === 0) {
-          setErrore("❌ Alimento non trovato.");
+          navigate("/paginaNonTrovata", { replace: true });
         } else {
           setDati(json[0]);
         }

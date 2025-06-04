@@ -197,7 +197,7 @@ function Calcolo() {
         const data = await res.json();
 
         if (data.length === 0) {
-          setErrore("❌ Nessun alimento trovato.");
+          navigate("/paginaNonTrovata", { replace: true });
           setRisultati([]);
         } else {
           setRisultati(data);

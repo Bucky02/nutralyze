@@ -115,5 +115,24 @@ router.post("/caricaAlimento", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+// 🗑 DELETE /alimenti/:id - Elimina un alimento dato il suo ID
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const eliminato = await Alimento.findByIdAndDelete(id);
+
+    if (!eliminato) {
+      return res.status(404).json({ message: "Alimento non trovato" });
+    }
+
+    res.json({
+      message: `Alimento '${eliminato.Nome}' eliminato con successo`,
+      eliminato,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 module.exports = router;
