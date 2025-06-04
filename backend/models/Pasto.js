@@ -3,16 +3,16 @@ const mongoose = require("mongoose");
 const PastoSchema = new mongoose.Schema({
   utenteId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Utente", // nome del modello Mongoose dell'utente
+    ref: "Utente",
     required: true,
   },
   alimentoId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Alimento", // nome del modello Mongoose dell'alimento
+    ref: "Alimento",
     required: true,
   },
   data: {
-    type: Date,
+    type: String, // 🔥 non Date ma String, es. "2025-06-04"
     required: true,
   },
   grammi: {
@@ -21,5 +21,4 @@ const PastoSchema = new mongoose.Schema({
   },
 });
 
-// Esportazione del modello
 module.exports = mongoose.model("Pasto", PastoSchema, "pasti");

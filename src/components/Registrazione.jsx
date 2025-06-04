@@ -150,7 +150,7 @@ function Registrazione() {
 
       if (response.ok) {
         setMessaggioServer("✅ Registrazione completata con successo!");
-        setTimeout(() => navigate("/login"), 2000);
+        setTimeout(() => navigate("/"), 2000);
       } else {
         setMessaggioServer(`❌ Errore: ${result.message}`);
       }
