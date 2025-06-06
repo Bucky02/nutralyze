@@ -20,6 +20,7 @@ import RimuoviProdotto from "./components/RimuoviProdotto";
 import PrivateRoute from "./components/PrivateRoute";
 import HomePage from "./components/HomePage";
 import PaginaNonTrovata from "./components/PaginaNonTrovata";
+import StoricoAlimentazione from "./components/StoricoAlimentazione";
 
 function App() {
   const location = useLocation();
@@ -76,6 +77,14 @@ function App() {
           {/* Pagina 404 */}
           <Route path="/paginaNonTrovata" element={<PaginaNonTrovata />} />
           <Route path="*" element={<PaginaNonTrovata />} />
+          <Route
+            path="/storico"
+            element={
+              <PrivateRoute>
+                <StoricoAlimentazione />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </main>
 

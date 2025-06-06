@@ -23,6 +23,8 @@ const utentiRouter = require("./routes/utenti");
 app.use("/api/utenti", utentiRouter);
 const pastiRouter = require("./routes/pasti");
 app.use("/api/pasti", pastiRouter);
+const noteRouter = require("./routes/note");
+app.use("/api/note", noteRouter);
 
 // ✅ Connessione MongoDB
 mongoose

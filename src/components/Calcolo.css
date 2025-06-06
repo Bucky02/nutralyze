@@ -1,121 +1,303 @@
-/* Layout principale */
+/* Container principale */
 .calcolo {
-  background-color: #1e1e1e;
-  color: #f5f5f5;
+  padding: 2rem 3rem;
+  background-color: #f7faf9;
+  font-family: "Poppins", sans-serif;
   min-height: 100vh;
-  padding: 40px;
-  font-family: "Raleway", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #2e3e2f;
 }
 
-/* Etichetta dell'input */
-.alimento {
-  font-size: 20px;
-  margin-bottom: 10px;
-  display: block;
-  color: rgb(245, 224, 164);
+/* Wrapper per limitare larghezza e centrare */
+.contenitore {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-/* Campo di input */
-.txt {
+/* Barra di ricerca */
+.barra {
+  background: #ffffff;
+  padding: 1.8rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(46, 125, 50, 0.12);
+  color: #1f3e2e;
+}
+
+.barra h2 {
+  font-weight: 700;
+  font-size: 2.2rem;
+  margin-bottom: 0.3rem;
+  letter-spacing: 1px;
+}
+
+.barra .descrizione {
+  font-size: 1rem;
+  color: #4a6955;
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
+}
+
+.barra input[type="search"] {
   width: 100%;
-  max-width: 400px;
-  padding: 10px;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  background-color: #2c2c2c;
-  color: #fff;
-  outline: none;
-  margin-bottom: 30px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  padding: 0.65rem 1rem;
+  font-size: 1.05rem;
+  border: 2px solid #aec9b7;
+  border-radius: 12px;
+  box-shadow: inset 0 1px 5px rgba(46, 125, 50, 0.12);
+  transition: border-color 0.3s ease;
+  color: #2f4b2e;
 }
 
-/* Contenitore dei due box sotto */
-.conto {
+.barra input[type="search"]:focus {
+  outline: none;
+  border-color: #3f7042;
+  box-shadow: 0 0 8px #3f7042;
+}
+
+.errore {
+  color: #b33a3a;
+  font-weight: 600;
+  margin-top: 0.8rem;
+}
+
+/* Lista risultati ricerca */
+.listaAlimenti {
+  margin-top: 0.9rem;
+  list-style: none;
+  padding: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  border-radius: 12px;
+  border: 1.5px solid #aac9ab;
+  background-color: #e6f1e9;
+  box-shadow: inset 0 0 10px rgba(46, 125, 50, 0.15);
+}
+
+.listaAlimenti li {
+  padding: 10px 16px;
   display: flex;
   justify-content: space-between;
-  gap: 40px;
+  align-items: center;
+  border-bottom: 1px solid #b8d4b9;
+  font-weight: 600;
+  color: #2c462a;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.listaAlimenti li:last-child {
+  border-bottom: none;
+}
+
+.listaAlimenti li:hover {
+  background-color: #c6dfc6;
+}
+
+.btn-aggiungi {
+  background-color: #3f7042;
+  border: none;
+  color: #e9f2e9;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 3px 6px rgba(63, 112, 66, 0.5);
+}
+
+.btn-aggiungi:hover {
+  background-color: #2c4a29;
+  box-shadow: 0 4px 10px rgba(44, 74, 41, 0.7);
+}
+
+/* Contenuto principale: due colonne */
+.contenuto {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 
-/* Box lista e resoconto */
-.lista,
-.resoconto {
-  flex: 1;
-  min-width: 300px;
-  background-color: #2a2a2a;
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+/* Lista alimenti selezionati */
+.lista {
+  flex: 1 1 600px;
+  background: #ffffff;
+  padding: 1.8rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.15);
+  color: #2f4b2e;
+  max-height: 650px;
+  overflow-y: auto;
 }
 
-/* Titoli dei box */
-.lista h3,
-.resoconto h3 {
-  color: rgb(245, 224, 164);
-  margin-bottom: 20px;
+.lista h3 {
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #aec9b7;
+  padding-bottom: 8px;
 }
 
-/* Lista della spesa */
 .lista ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.lista li {
-  border-bottom: 1px solid #444;
-  padding: 10px 0;
-  color: #ddd;
+.item-alimento {
+  background-color: #eaf3e9;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.12);
+  transition: box-shadow 0.3s ease;
 }
 
-/* Resoconto paragrafo */
-.resoconto p {
-  color: #ccc;
-  margin: 6px 0;
-  font-size: 15px;
+.item-alimento:hover {
+  box-shadow: 0 6px 18px rgba(46, 125, 50, 0.25);
 }
 
-.barra {
+.item-alimento .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.item-alimento strong {
+  font-size: 1.15rem;
+  color: #2f4b2e;
+  letter-spacing: 0.5px;
+}
+
+.btn-rimuovi {
+  background-color: #a63131;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 4px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 3px 10px rgba(166, 49, 49, 0.6);
+}
+
+.btn-rimuovi:hover {
+  background-color: #7a2525;
+  box-shadow: 0 4px 14px rgba(122, 37, 37, 0.8);
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.input-group input[type="number"] {
+  width: 90px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 2px solid #aec9b7;
+  border-radius: 12px;
+  color: #2f4b2e;
+  font-weight: 600;
+  transition: border-color 0.3s ease;
+  box-shadow: inset 0 1px 4px rgba(46, 125, 50, 0.15);
+}
+
+.input-group input[type="number"]:focus {
+  outline: none;
+  border-color: #3f7042;
+  box-shadow: 0 0 8px #3f7042;
+}
+
+.input-group span {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #4a6955;
+}
+
+/* Info nutrizionali */
+.info-nutrizionali {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #3a5a2a;
+  user-select: none;
+}
+
+/* Resoconto nutrizionale */
+.resoconto {
+  flex: 0 1 320px;
+  background: #ffffff;
+  padding: 1.8rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.15);
+  color: #2f4b2e;
   display: flex;
   flex-direction: column;
-  align-items: center; /* centra orizzontalmente */
-  margin-bottom: 20px; /* spazio sotto se vuoi distanziarlo */
+  justify-content: space-between;
+  max-height: 650px;
 }
 
-.listaAlimenti {
-  list-style-type: none; /* niente pallini */
-  padding: 0;
-  margin: 1.5rem auto 0 auto; /* margine sopra e centrata orizzontalmente */
-  max-width: 400px; /* larghezza massima per non allungarsi troppo */
-  max-height: 250px; /* <- aggiunto limite altezza */
-  overflow-y: auto; /* <- aggiunto scrollbar verticale */
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.85
-  ); /* sfondo chiaro semi-trasparente */
-  border-radius: 10px; /* angoli arrotondati */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* ombra leggera */
-  color: #333; /* testo scuro */
-  font-family: "Raleway", system-ui, Avenir, Helvetica, Arial, sans-serif;
+.resoconto h3 {
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #aec9b7;
+  padding-bottom: 8px;
+}
+
+.resoconto ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  color: #3a5a2a;
+}
+
+.resoconto li {
+  margin-bottom: 0.8rem;
   font-weight: 600;
-  font-size: 1.1rem;
 }
 
-.listaAlimenti li {
-  color: black; /* ma se il fondo è scuro, non si vede! */
-}
-
-.btn-cestino {
-  margin-left: 10px;
-  background: none;
+/* Pulsanti */
+.btn-torna,
+.btn-storico {
+  background-color: #3f7042;
+  color: #e9f2e9;
   border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 700;
+  font-size: 1.05rem;
   cursor: pointer;
-  font-size: 1.1rem;
-  color: #c00;
+  margin-top: 0.6rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 12px rgba(63, 112, 66, 0.7);
+  user-select: none;
 }
-.btn-cestino:hover {
-  color: red;
+
+.btn-torna:hover,
+.btn-storico:hover {
+  background-color: #2c4a29;
+  box-shadow: 0 8px 18px rgba(44, 74, 41, 0.9);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .contenuto {
+    flex-direction: column;
+  }
+
+  .lista,
+  .resoconto {
+    max-height: none;
+    flex: 1 1 100%;
+  }
 }

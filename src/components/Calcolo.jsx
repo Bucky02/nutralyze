@@ -27,7 +27,6 @@ function Calcolo() {
   const [risultati, setRisultati] = useState([]);
   const [errore, setErrore] = useState(null);
   const [alimentiSelezionati, setAlimentiSelezionati] = useState([]);
-  const [dataCorrente, setDataCorrente] = useState(new Date());
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
@@ -35,20 +34,17 @@ function Calcolo() {
 
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const dataCorrente = new Date();
   const dataISO = dataCorrente.toISOString().split("T")[0];
 
   useEffect(() => {
     const utente = localStorage.getItem("utente");
-
     if (token && utente) {
       try {
         const utenteObj = JSON.parse(utente);
-        console.log("👤 utenteObj:", utenteObj);
         setUsername(utenteObj.username || "Utente");
         setUtenteId(utenteObj.id || null);
-        console.log("✅ utenteId impostato a:", utenteObj.id);
-      } catch (e) {
-        console.warn("❌ Errore parsing utente:", e);
+      } catch {
         setUsername("Utente");
         setUtenteId(null);
       }
@@ -60,17 +56,8 @@ function Calcolo() {
     }
   }, []);
 
-  const cambiaGiorno = (offset) => {
-    const nuovaData = new Date(dataCorrente);
-    nuovaData.setDate(nuovaData.getDate() + offset);
-    setDataCorrente(nuovaData);
-  };
-
   useEffect(() => {
     if (!isLoggedIn || !utenteId) {
-      console.warn(
-        "⚠️ Salto caricamento pasti: non loggato o utenteId mancante"
-      );
       setAlimentiSelezionati([]);
       return;
     }
@@ -83,31 +70,24 @@ function Calcolo() {
         const pastiAdattati = dati.map((pasto) => ({
           ...pasto.alimentoId,
           quantita: pasto.grammi,
-          pastoId: pasto._id, // 👈 salvi anche ID del documento Pasto
+          pastoId: pasto._id,
         }));
         setAlimentiSelezionati(pastiAdattati);
       })
-
       .catch(() => setAlimentiSelezionati([]));
-  }, [dataCorrente, isLoggedIn, utenteId]);
+  }, [isLoggedIn, utenteId]);
 
   const aggiungiAlimento = async (alimento) => {
-    console.log("✅ Cliccato alimento:", alimento);
-
     const nuovo = { ...alimento, quantita: 100 };
 
     if (!utenteId) {
-      setAlimentiSelezionati((prev) => [
-        ...prev,
-        { ...alimento, quantita: 100 }, // Default 100g
-      ]);
+      setAlimentiSelezionati((prev) => [...prev, nuovo]);
       setQuery("");
       setRisultati([]);
       return;
     }
 
     if (isLoggedIn && utenteId) {
-      console.log("🔐 Utente loggato, salvo pasto...");
       await fetch("http://localhost:8080/api/pasti", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -118,8 +98,6 @@ function Calcolo() {
           grammi: 100,
         }),
       });
-    } else {
-      console.warn("⚠️ Utente NON loggato o utenteId mancante!");
     }
 
     setAlimentiSelezionati((prev) => [...prev, nuovo]);
@@ -143,7 +121,7 @@ function Calcolo() {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            pastoId: alimento.pastoId, // 👈 ora usi _id di `Pasto`
+            pastoId: alimento.pastoId,
             grammi: nuovaQuantita,
           }),
         });
@@ -153,7 +131,16 @@ function Calcolo() {
     }
   };
 
-  const rimuoviAlimento = (index) => {
+  const rimuoviAlimento = async (index) => {
+    const alimento = alimentiSelezionati[index];
+    if (!alimento) return;
+
+    if (isLoggedIn && utenteId && alimento.pastoId) {
+      await fetch(`http://localhost:8080/api/pasti/${alimento.pastoId}`, {
+        method: "DELETE",
+      });
+    }
+
     setAlimentiSelezionati((prev) => prev.filter((_, i) => i !== index));
   };
 
@@ -197,8 +184,8 @@ function Calcolo() {
         const data = await res.json();
 
         if (data.length === 0) {
-          navigate("/paginaNonTrovata", { replace: true });
           setRisultati([]);
+          setErrore("Nessun alimento trovato");
         } else {
           setRisultati(data);
           setErrore(null);
@@ -217,100 +204,115 @@ function Calcolo() {
 
   return (
     <div className="calcolo">
-      <div className="barra">
-        <div className="selezione-giorno">
-          <button onClick={() => cambiaGiorno(-1)}>←</button>
-          <span>{dataCorrente.toLocaleDateString()}</span>
-          <button onClick={() => cambiaGiorno(1)}>→</button>
-        </div>
+      <div className="contenitore">
+        <div className="barra">
+          <h2>Piano Alimentare Giornaliero</h2>
+          <p className="descrizione">
+            Cerca un alimento e aggiungilo al tuo piano di oggi. Modifica i
+            grammi o rimuovilo. Il totale nutrizionale si aggiorna in tempo
+            reale.
+          </p>
 
-        <label htmlFor="search" className="alimento">
-          Aggiungi un alimento
-        </label>
-        <input
-          type="search"
-          id="search"
-          name="search"
-          className="txt"
-          size="20"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Es. agnello"
-        />
-        {errore && <p className="errore">{errore}</p>}
-        {!isLoggedIn && (
-          <p className="errore">🔒 Accedi per salvare i tuoi progressi.</p>
-        )}
-        {risultati.length > 0 && (
-          <ul className="listaAlimenti">
-            {risultati.map((alimento, index) => (
-              <li
-                key={alimento._id || index}
-                className="nomeAlimento"
-                onClick={() => aggiungiAlimento(alimento)}
-              >
-                {alimento.Nome}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+          <input
+            type="search"
+            id="search"
+            name="search"
+            className="txt"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Es. agnello"
+          />
+          {errore && <p className="errore">{errore}</p>}
 
-      <div className="conto">
-        <div className="lista">
-          <h3>Lista alimenti</h3>
-          <ul>
-            {alimentiSelezionati.map((alimento, index) => {
-              const q = alimento.quantita / 100;
-              const proteine = q * parseFloat(alimento["Proteine (g)"] || 0);
-              const grassi = q * calcolaGrassi(alimento);
-              const calorie =
-                q * parseFloat(alimento["Energia, calorie (kcal)"] || 0);
-              const carboidrati =
-                q * parseFloat(alimento["Glucidi, disponibili (g)"] || 0);
-
-              return (
-                <li key={index}>
-                  <strong>{alimento.Nome}</strong>{" "}
-                  <input
-                    type="number"
-                    min="0"
-                    step="10"
-                    value={alimento.quantita}
-                    onChange={(e) =>
-                      aggiornaQuantita(index, parseFloat(e.target.value) || 0)
-                    }
-                    style={{ width: "60px", marginLeft: "10px" }}
-                  />
-                  <span>g</span>
+          {risultati.length > 0 && (
+            <ul className="listaAlimenti">
+              {risultati.map((alimento, index) => (
+                <li key={alimento._id || index} className="nomeAlimento">
+                  {alimento.Nome}
                   <button
-                    onClick={() => rimuoviAlimento(index)}
-                    className="btn-cestino"
-                    title="Rimuovi alimento"
+                    onClick={() => aggiungiAlimento(alimento)}
+                    className="btn-aggiungi"
                   >
-                    🗑️
+                    ➕ Aggiungi
                   </button>
-                  <div className="info-nutrizionali">
-                    Proteine: {proteine.toFixed(1)}g<br />
-                    Grassi: {grassi.toFixed(1)}g<br />
-                    Calorie: {calorie.toFixed(1)}kcal
-                    <br />
-                    Carboidrati: {carboidrati.toFixed(1)}g<br />
-                  </div>
                 </li>
-              );
-            })}
-          </ul>
+              ))}
+            </ul>
+          )}
         </div>
 
-        <div className="resoconto">
-          <h3>Resoconto calorie</h3>
-          <ul>
-            <li>Totale calorie: {totale.calorie.toFixed(1)} kcal</li>
-            <li>Proteine: {totale.proteine.toFixed(1)} g</li>
-            <li>Grassi: {totale.grassi.toFixed(1)} g</li>
-            <li>Carboidrati: {totale.carboidrati.toFixed(1)}g </li>
-          </ul>
+        <div className="contenuto">
+          <div className="lista">
+            <h3>Alimenti Selezionati</h3>
+            <ul>
+              {alimentiSelezionati.map((alimento, index) => {
+                const q = alimento.quantita / 100;
+                const proteine = q * parseFloat(alimento["Proteine (g)"] || 0);
+                const grassi = q * calcolaGrassi(alimento);
+                const calorie =
+                  q * parseFloat(alimento["Energia, calorie (kcal)"] || 0);
+                const carboidrati =
+                  q * parseFloat(alimento["Glucidi, disponibili (g)"] || 0);
+
+                return (
+                  <li key={index} className="item-alimento">
+                    <div className="top">
+                      <strong>{alimento.Nome}</strong>
+                      <button
+                        onClick={() => rimuoviAlimento(index)}
+                        className="btn-rimuovi"
+                        title="Rimuovi alimento"
+                      >
+                        ❌
+                      </button>
+                    </div>
+                    <div className="input-group">
+                      <input
+                        type="number"
+                        min="0"
+                        step="10"
+                        value={alimento.quantita}
+                        onChange={(e) =>
+                          aggiornaQuantita(
+                            index,
+                            parseFloat(e.target.value) || 0
+                          )
+                        }
+                      />
+                      <span>g</span>
+                    </div>
+                    <div className="info-nutrizionali">
+                      🥩 Proteine: {proteine.toFixed(1)}g<br />
+                      🥓 Grassi: {grassi.toFixed(1)}g<br />
+                      🍞 Carboidrati: {carboidrati.toFixed(1)}g<br />
+                      🔥 Calorie: {calorie.toFixed(1)}kcal
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <div className="resoconto">
+            <h3>Resoconto Nutrizionale</h3>
+            <ul>
+              <li>🔥 Calorie: {totale.calorie.toFixed(1)} kcal</li>
+              <li>🥩 Proteine: {totale.proteine.toFixed(1)} g</li>
+              <li>🥓 Grassi: {totale.grassi.toFixed(1)} g</li>
+              <li>🍞 Carboidrati: {totale.carboidrati.toFixed(1)} g</li>
+            </ul>
+            <button onClick={() => navigate("/")} className="btn-torna">
+              ⬅ Torna alla Home
+            </button>
+            {isLoggedIn && (
+              <button
+                onClick={() => navigate("/storico")}
+                className="btn-storico"
+              >
+                📅 Vai allo Storico
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

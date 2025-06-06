@@ -73,4 +73,23 @@ router.put("/update-quantita", async (req, res) => {
   }
 });
 
+// GET /pasti/date?utenteId=... - Restituisce un array di date uniche con pasti
+router.get("/date", async (req, res) => {
+  const { utenteId } = req.query;
+
+  if (!utenteId) {
+    return res.status(400).json({ message: "utenteId richiesto" });
+  }
+
+  try {
+    // Trova tutte le date dei pasti dell'utente, senza duplicati
+    const dateResults = await Pasto.distinct("data", { utenteId });
+
+    res.json(dateResults); // array di stringhe YYYY-MM-DD
+  } catch (err) {
+    console.error("Errore recupero date pasti:", err);
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;
