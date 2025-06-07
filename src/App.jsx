@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation, useMatch } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 
 // Componenti
@@ -24,31 +24,46 @@ import StoricoAlimentazione from "./components/StoricoAlimentazione";
 
 function App() {
   const location = useLocation();
-  const isPaginaNotFound = useMatch("*")?.pathname === location.pathname;
+  const pathname = location.pathname;
 
-  const adminRoutes = ["/admin", "/aggiungiProdotto", "/rimuoviProdotto"];
-  const noHeaderRoutes = ["/accedi", "/registrazione", ...adminRoutes];
+  const isHomePage = pathname === "/";
+  const isAdminPage = [
+    "/admin",
+    "/aggiungiProdotto",
+    "/rimuoviProdotto",
+  ].includes(pathname);
+  const isLoginOrRegister = ["/accedi", "/registrazione"].includes(pathname);
+  const isPaginaNotFound = pathname === "/paginaNonTrovata";
+
+  const mostraHeader =
+    !isHomePage && !isAdminPage && !isLoginOrRegister && !isPaginaNotFound;
+  const mostraFooter = !isAdminPage && !isLoginOrRegister && !isPaginaNotFound;
 
   return (
     <div className="app-container">
-      {/* Banner sulla home */}
-      {location.pathname === "/" && <Banner key={location.pathname} />}
-
-      {/* Header su tutte le altre pagine tranne login/registrazione/admin/404 */}
-      {location.pathname !== "/" &&
-        !noHeaderRoutes.includes(location.pathname) &&
-        !isPaginaNotFound && <Header />}
+      {/* Header (escluso dalla homepage e dalle pagine speciali) */}
+      {mostraHeader && <Header />}
 
       <main className="main-content">
         <Routes>
-          {/* Pubbliche */}
-          <Route path="/" element={<HomePage />} />
+          {/* Homepage: SOLO Banner + HomePage */}
+          <Route
+            path="/"
+            element={
+              <>
+                <Banner />
+                <HomePage />
+              </>
+            }
+          />
+
+          {/* Pagine pubbliche */}
           <Route path="/calcolo" element={<Calcolo />} />
           <Route path="/accedi" element={<Accedi />} />
           <Route path="/registrazione" element={<Registrazione />} />
           <Route path="/datiAlimento/:nome" element={<DatiAlimento />} />
 
-          {/* Rotte protette solo per admin */}
+          {/* Pagine protette (admin) */}
           <Route
             path="/admin"
             element={
@@ -74,9 +89,7 @@ function App() {
             }
           />
 
-          {/* Pagina 404 */}
-          <Route path="/paginaNonTrovata" element={<PaginaNonTrovata />} />
-          <Route path="*" element={<PaginaNonTrovata />} />
+          {/* Pagine protette (utente loggato) */}
           <Route
             path="/storico"
             element={
@@ -85,13 +98,15 @@ function App() {
               </PrivateRoute>
             }
           />
+
+          {/* Pagina 404 */}
+          <Route path="/paginaNonTrovata" element={<PaginaNonTrovata />} />
+          <Route path="*" element={<PaginaNonTrovata />} />
         </Routes>
       </main>
 
-      {/* Footer su tutte le altre pagine tranne login/registrazione/admin/404 */}
-      {!noHeaderRoutes.includes(location.pathname) && !isPaginaNotFound && (
-        <Footer />
-      )}
+      {/* Footer visibile ovunque tranne login, registrazione, admin e 404 */}
+      {mostraFooter && <Footer />}
     </div>
   );
 }

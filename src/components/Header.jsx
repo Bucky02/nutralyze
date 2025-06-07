@@ -43,6 +43,7 @@ function Header() {
     localStorage.removeItem("utente");
     setIsLoggedIn(false);
     setUsername("");
+    setIsOpen(false); // chiude il menu al logout
     navigate("/");
   };
 
@@ -56,12 +57,6 @@ function Header() {
       </div>
 
       <div className="header-buttons-container">
-        {!isLoggedIn && (
-          <Link to="/accedi">
-            <button className="header-login-button">Accedi</button>
-          </Link>
-        )}
-
         {isLoggedIn && (
           <div
             className="user-info-container"
@@ -80,13 +75,10 @@ function Header() {
             ></span>
             {/* Nome utente */}
             <span className="username-highlight">{username}</span>
-            {/* Bottone logout */}
-            <button className="header-login-button" onClick={handleLogout}>
-              Logout
-            </button>
           </div>
         )}
 
+        {/* Menu hamburger */}
         <div className="header-dropdown" ref={dropdownRef}>
           <button
             className={`header-secondary-button ${isOpen ? "open" : ""}`}
@@ -101,10 +93,54 @@ function Header() {
           </button>
 
           {isOpen && (
-            <div className="header-dropdown-content">
-              {!isLoggedIn && <a href="/registrazione">Registrati</a>}
-              <a href="#info2">Info 2</a>
-              <a href="#info3">Info 3</a>
+            <div
+              className={`header-dropdown-content ${isOpen ? "show" : ""}`}
+              role="menu"
+              aria-hidden={!isOpen}
+              tabIndex={-1}
+              onKeyDown={(e) => {
+                if (e.key === "Escape") setIsOpen(false);
+              }}
+            >
+              {!isLoggedIn ? (
+                <>
+                  <Link
+                    to="/accedi"
+                    onClick={() => setIsOpen(false)}
+                    role="menuitem"
+                    tabIndex={isOpen ? 0 : -1}
+                  >
+                    Accedi
+                  </Link>
+                  <Link
+                    to="/registrazione"
+                    onClick={() => setIsOpen(false)}
+                    role="menuitem"
+                    tabIndex={isOpen ? 0 : -1}
+                  >
+                    Registrati
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/storico"
+                    onClick={() => setIsOpen(false)}
+                    role="menuitem"
+                    tabIndex={isOpen ? 0 : -1}
+                  >
+                    Dati profilo
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="logout-button-menu"
+                    role="menuitem"
+                    tabIndex={isOpen ? 0 : -1}
+                  >
+                    Logout
+                  </button>
+                </>
+              )}
             </div>
           )}
         </div>
